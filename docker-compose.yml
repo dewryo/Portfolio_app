@@ -1,0 +1,60 @@
+version: '3'
+services:
+  # Nginxサービス
+  nginx:
+    container_name: "nginx"  # コンテナの名前
+    build:
+      context: ./docker/nginx  # NginxのDockerfileがあるディレクトリ
+    depends_on:
+      - app  # appサービスが起動してから起動
+    ports:
+      - "80:80"  # ホストマシンのポート80をコンテナのポート80にマッピング
+    volumes:
+      - ./:/src  # ホストマシンのカレントディレクトリをコンテナの/srcにマウント
+
+  # PHPアプリケーションサービス
+  app:
+    container_name: "app"  # コンテナの名前
+    build:
+      context: ./docker/php  # PHPアプリケーションのDockerfileがあるディレクトリ
+    depends_on:
+      - db  # dbサービスが起動してから起動
+    volumes:
+      - ./:/src  # ホストマシンのカレントディレクトリをコンテナの/srcにマウント
+      - /src/node_modules  # ノードモジュールをコンテナ内の/src/node_modulesにマウント
+      - /src/vendor  # ベンダーディレクトリをコンテナ内の/src/vendorにマウント
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini  # カスタムのphp.iniをマウント
+
+  # MySQLデータベースサービス
+  db:
+    image: mysql:8.0.33  # MySQLイメージの指定
+    command: --max_allowed_packet=32505856  # MySQLコマンドラインオプション
+    container_name: "db"  # コンテナの名前
+    volumes:
+      - ./docker/mysql:/var/lib/mysql  # ホストマシンの./docker/mysqlディレクトリをコンテナの/var/lib/mysqlにマウント
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # ルートユーザーのパスワード
+      MYSQL_USER: ${MYSQL_USER}  # MySQLユーザー名
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # MySQLユーザーのパスワード
+      MYSQL_DATABASE: ${MYSQL_DATABASE}  # MySQLデータベース名
+    ports:
+      - "3306:3306"  # ホストマシンのポート3306をコンテナのポート3306にマッピング
+
+  # Redisサービス
+  redis:
+    image: redis:alpine  # Redisイメージの指定
+    container_name: "redis"  # コンテナの名前
+    ports:
+      - "16379:6379"  # ホストマシンのポート16379をコンテナのポート6379にマッピング
+
+  # phpMyAdminサービス
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin  # phpMyAdminイメージの指定
+    container_name: phpmyadmin  # コンテナの名前
+    environment:
+      - PMA_ARBITRARY=1  # phpMyAdminの設定オプション
+      - PMA_HOSTS=db  # データベースのホストを指定
+    ports:
+     - 3000:80  # ホストマシンのポート3000をコンテナのポート80にマッピング
+    volumes:
+     - ./phpadmin/sessions:/sessions  # ホストマシンの./phpadmin/sessionsディレクトリをコンテナの/sessionsにマウント

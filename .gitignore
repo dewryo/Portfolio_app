@@ -2,7 +2,6 @@
 /docker/mysql
 /docker/nginx/logs
 node_modules
-
 /.phpunit.cache
 /node_modules
 /public/build

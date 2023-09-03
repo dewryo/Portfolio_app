@@ -1,6 +1,8 @@
 # ベースイメージを指定
 FROM php:8.2-fpm
 
+EXPOSE 5173
+
 # 必要なパッケージをインストール
 RUN apt-get update \
     && apt-get install -y \

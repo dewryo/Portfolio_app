@@ -19,6 +19,8 @@ services:
       context: ./docker/php  # PHPアプリケーションのDockerfileがあるディレクトリ
     depends_on:
       - db  # dbサービスが起動してから起動
+    ports:
+      - 5173:5173 # Docker外にいるブラウザから、appサーバー内にいるViteが見えるよう、ポート5173を見せるため
     volumes:
       - ./:/src  # ホストマシンのカレントディレクトリをコンテナの/srcにマウント
       - /src/node_modules  # ノードモジュールをコンテナ内の/src/node_modulesにマウント

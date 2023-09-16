@@ -1,14 +1,25 @@
 /* Header styles */
 header {
+    display: flex;
     background-color: #333;
     color: #fff;
     padding: 1em 0;
-    text-align: center;
+    align-items: center;
+    justify-content: space-between;
 }
 
 header h1 {
     margin: 0;
     font-size: 2em;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.header-buttons{
+    display: flex;
+    gap: 10px;
+    padding-right: 20px;
+    
 }
 
 /* Main content styles */
@@ -29,4 +40,8 @@ footer {
 
 footer p {
     margin: 0;
+}
+
+.custom-link {
+    color: white;
 }

@@ -16,6 +16,7 @@ return [
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
+        'remember' => 40320,  // 有効期限（分
     ],
 
     /*

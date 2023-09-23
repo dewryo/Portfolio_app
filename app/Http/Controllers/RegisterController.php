@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
+    //新規登録画面表示
     public function showRegistrationForm()
     {
         return view('auth.register');
     }
-
+    
+    //新規登録機能
     public function register(Request $request)
     {
         // バリデーション

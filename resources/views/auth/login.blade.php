@@ -2,16 +2,21 @@
 
 @section('content')
     <h1>ログイン</h1>
-    <form action="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}">
     @csrf
     <div class="form-group">
+        @error('email')
+        <div class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </div>
+        @enderror
         <label for="email">メールアドレス</label>
-        <input type="email" name="email" id="email" required>
+        <input type="email" name="email" id="email">
     </div>
 
     <div class="form-group">
         <label for="password">パスワード</label>
-        <input type="password" name="password" id="password" required>
+        <input type="password" name="password" id="password">
     </div>
 
     <div class="form-group">

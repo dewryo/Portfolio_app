@@ -10,8 +10,12 @@
     <header>
         <h1>ChalkTalk</h1>
         <div class="header-buttons">
-        <a href="#" class="custom-link"><p>新規登録</p></a>
-        <a href="#" class="custom-link"><p>ログイン</p></a>
+        @if (Auth::check())
+        <a href="{{ route('logout') }}" class="custom-link"><p>ログアウト</p></a>
+        @else
+        <a href="{{ route('register') }}" class="custom-link"><p>新規登録</p></a>
+        <a href="{{ route('login') }}" class="custom-link"><p>ログイン</p></a>
+        @endif
         </div>
     </header>
 

@@ -22,7 +22,7 @@ use App\Http\Controllers\Controller;
 Route::get('/',[Controller::class, 'showhome'])->name('home');
 
 // ログインページ
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->middleware('guest') ->name('login');
 // ログイン処理
 Route::post('/login', [AuthController::class, 'login']);
 // ログアウト処理
@@ -30,6 +30,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // 新規登録フォームの表示
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->middleware('guest') ->name('register');
 // 新規登録処理
 Route::post('/register', [RegisterController::class,'register']);

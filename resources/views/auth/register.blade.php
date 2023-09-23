@@ -20,6 +20,10 @@
         <label for="password_confirmation">パスワード（確認）</label>
         <input type="password" id="password_confirmation" name="password_confirmation" required>
     </div>
+    <div class="form-group">
+        <input type="checkbox" name="remember" id="remember">
+        <label for="remember">ログイン状態を保存する</label>
+    </div>
     <button type="submit">登録</button>
 </form>
 @endsection

@@ -13,7 +13,7 @@ class RegisterController extends Controller
     {
         return view('auth.register');
     }
-    
+
     //新規登録機能
     public function register(Request $request)
     {
@@ -31,8 +31,11 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $credentials = $request->only('email', 'password');
+        $remember = $request->input('remember');
+
         // ログインしてホームページにリダイレクト
-        auth()->attempt($request->only('email', 'password'));
+        auth()->attempt($credentials,$remember);
 
         return redirect()->route('home');
     }

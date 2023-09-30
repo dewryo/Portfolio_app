@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2>おすすめ板書一覧</h2>
-    <p>板書</p>
+    <h2>板書一覧</h2>
+    <@foreach ($images as $image)
+    <p>User ID: {{ $image->user_id }}</p>
+    <img src="{{ asset($image -> file_path) }}" alt="{{ $image->file_name }}">
+@endforeach
 @endsection

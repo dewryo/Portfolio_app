@@ -10,6 +10,7 @@
     <title>板書投稿</title>
 </head>
 <body>
+<div id="app">
     <form action="/posts" method="POST" enctype="multipart/form-data">
         @csrf
         <div>
@@ -18,8 +19,7 @@
         </div>
 
         <div>
-            <label for="image">画像:</label>
-            <input type="file" id="image" name="image" accept="image/*" required>
+            <image-preview></image-preview>
         </div>
 
         <div>
@@ -31,6 +31,7 @@
             <input type="submit" value="投稿">
         </div>
     </form>
+</div>
 
 </body>
 </html>

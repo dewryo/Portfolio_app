@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Image;
+use App\Models\Post;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -13,7 +13,7 @@ class Controller extends BaseController
 
     public function showhome()
     {
-        $images = Image::all();
+        $images = Post::all();
         return view('index',['images' => $images]);
     }
 }

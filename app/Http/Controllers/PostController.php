@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Models\Image;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -27,13 +28,21 @@ class PostController extends Controller
         $imageName = time().'.'.$request->image->extension();  
         $request->image->move(public_path('images'), $imageName);
 
-        // データベースに保存
+        // postsデータベースに保存
         $post = new Post;
         $post->user_id = Auth::id(); 
         $post->title = $request->title;
         $post->content = $request->content;
         $post->file_path = 'images/' . $imageName;
         $post->save();
+        
+        // imagesデータベースに保存
+        $image = new Image;
+        $image->user_id = Auth::id(); 
+        $image->post_id = $post->id;
+        $image->file_name = $imageName;
+        $image->file_path = 'images/' . $imageName;
+        $image->save();
 
         return redirect()->route('home'); // 保存後に遷移するルート名を指定
     }

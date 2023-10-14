@@ -33,7 +33,6 @@ class PostController extends Controller
         $post->user_id = Auth::id(); 
         $post->title = $request->title;
         $post->content = $request->content;
-        $post->file_path = 'images/' . $imageName;
         $post->save();
         
         // imagesデータベースに保存

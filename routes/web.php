@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Controller;
 
 
@@ -33,3 +34,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->middleware('guest') ->name('register');
 // 新規登録処理
 Route::post('/register', [RegisterController::class,'register']);
+
+//新規投稿フォームの表示
+Route::get('/posts', [PostController::class, 'showPostForm'])->middleware('auth')->name('post');
+//新規投稿処理
+Route::post('/posts', [PostController::class, 'store']);

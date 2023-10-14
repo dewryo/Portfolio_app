@@ -1,7 +1,7 @@
 <template>
 <div>
   <label for="image">画像:</label>
-  <input type="file" id="image" name="image" accept="image/*" required @change="previewImages" multiple />
+  <input type="file" id="image" name="image[]" accept="image/*" required @change="previewImages" multiple/>
   <div v-for="(imageData, index) in imageDatas" :key="index">
     <img :src="imageData" alt="Image Preview" />
     <button @click="removeImage(index)">削除</button>

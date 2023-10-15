@@ -1,16 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>板書投稿</title>
-</head>
-<body>
-    @if ($errors->any())
+@if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -18,34 +9,34 @@
             @endforeach
         </ul>
     </div>
-    @endif
-<div id="app">
+@endif
+
+<div id="app" class="container mt-5">
     <form action="/posts" method="POST" enctype="multipart/form-data">
         @csrf
-        <div>
-            <label for="title">タイトル:</label>
-            <input type="text" id="title" name="title" required>
+
+        <div class="mb-3">
+            <label for="title" class="form-label">タイトル</label>
+            <input type="text" id="title" name="title" class="form-control" required>
         </div>
 
-        <div>
+        <div class="mb-3">
             <image-preview></image-preview>
         </div>
 
-        <div>
-            <label for="content">コンテンツ:</label>
-            <textarea id="content" name="content" rows="4" cols="50" required></textarea>
+        <div class="mb-3">
+            <label for="content" class="form-label">説明</label>
+            <textarea id="content" name="content" rows="4" class="form-control" required></textarea>
         </div>
 
-        <div>
+        <div class="mb-3">
             <tag-selector></tag-selector>
         </div>
 
-        <div>
-            <input type="submit" value="投稿">
+        <div class="mb-3">
+            <input type="submit" value="投稿" class="btn btn-primary">
         </div>
+
     </form>
 </div>
-
-</body>
-</html>
 @endsection

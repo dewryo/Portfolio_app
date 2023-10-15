@@ -52,7 +52,7 @@ class PostController extends Controller
                 
             }
         }
-        //post_tagテーブルに格納
+        //post_tagテーブルにtype=gradeで格納
         foreach($request->grades as $grade){
             $tag = Tag::where('name', $grade)->first();
             if($tag){
@@ -60,10 +60,23 @@ class PostController extends Controller
                 $post_tag = new PostTag;
                 $post_tag->post_id = $post->id;
                 $post_tag->tag_id = $tag_id;
+                $post_tag->type = 'grade';
                 $post_tag->save();
             }
         }
 
+        //post_tagテーブルにtype=subjectで格納
+        foreach($request->subjects as $subject){
+            $tag = Tag::where('name', $subject)->first();
+            if($tag){
+                $tag_id = $tag->id;
+                $post_tag = new PostTag;
+                $post_tag->post_id = $post->id;
+                $post_tag->tag_id = $tag_id;
+                $post_tag->type = 'subject';
+                $post_tag->save();
+            }
+        }
 
         return redirect()->route('home'); // 保存後に遷移するルート名を指定
     }

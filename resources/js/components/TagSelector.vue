@@ -2,13 +2,13 @@
   <div>
     <div>
       <h4>学年</h4>
-      <button v-for="grade in grades" :key="grade" @click="toggleTag('grade', grade)" :class="{ selected: selectedGrades.includes(grade) }">{{ grade }}</button>
+      <button type="button" v-for="grade in grades" :key="grade" @click="toggleTag('grade', grade)" :class="{ selected: selectedGrades.includes(grade) }">{{ grade }}</button>
       <input type="hidden" name="grades[]" v-for="grade in selectedGrades" :key="'grade-' + grade" :value="grade">
     </div>
 
     <div>
       <h4>教科</h4>
-      <button v-for="subject in subjects" :key="subject" @click="toggleTag('subject', subject)" :class="{ selected: selectedSubjects.includes(subject) }">{{ subject }}</button>
+      <button type="button" v-for="subject in subjects" :key="subject" @click="toggleTag('subject', subject)" :class="{ selected: selectedSubjects.includes(subject) }">{{ subject }}</button>
       <input type="hidden" name="subjects[]" v-for="subject in selectedSubjects" :key="'subject-' + subject" :value="subject">
     </div>
   </div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\Image;
+use App\Models\Tag;
+use App\Models\PostTag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -80,3 +82,4 @@ class PostController extends Controller
 
         return redirect()->route('home'); // 保存後に遷移するルート名を指定
     }
+}

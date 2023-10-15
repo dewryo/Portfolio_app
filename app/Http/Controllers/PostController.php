@@ -24,6 +24,8 @@ class PostController extends Controller
             'content' => 'required',
             'image' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 各画像のバリデーション
+            'grades' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
+            'subjects' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
         ]);
         // postテーブルに格納
         $post = new Post;
@@ -32,6 +34,7 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->save();
 
+        // imageテーブルに格納
         if($request->hasFile('image')){
             foreach($request->file('image') as $uploadedFile){
                   // 画像に命名
@@ -49,7 +52,18 @@ class PostController extends Controller
                 
             }
         }
+        //post_tagテーブルに格納
+        foreach($request->grades as $grade){
+            $tag = Tag::where('name', $grade)->first();
+            if($tag){
+                $tag_id = $tag->id;
+                $post_tag = new PostTag;
+                $post_tag->post_id = $post->id;
+                $post_tag->tag_id = $tag_id;
+                $post_tag->save();
+            }
+        }
+
 
         return redirect()->route('home'); // 保存後に遷移するルート名を指定
     }
-}

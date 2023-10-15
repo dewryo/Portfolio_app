@@ -14,8 +14,8 @@ class Controller extends BaseController
 
     public function showhome()
     {
-        $images = Image::all();
+        $posts = Post::with(['images', 'post_tags.tag'])->get();
         
-        return view('index',['images' => $images]);
+        return view('index',['posts' => $posts]);
     }
 }

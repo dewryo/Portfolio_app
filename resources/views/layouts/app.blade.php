@@ -20,6 +20,7 @@
                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-link">ログアウト</button>
+                        <a class="btn btn-link" href="{{ route('post') }}">新規投稿</a>
                     </form>
                     @else
                     <a class="btn btn-link" href="{{ route('register') }}">新規登録</a>

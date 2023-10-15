@@ -37,6 +37,10 @@
         </div>
 
         <div>
+            <tag-selector></tag-selector>
+        </div>
+
+        <div>
             <input type="submit" value="投稿">
         </div>
     </form>

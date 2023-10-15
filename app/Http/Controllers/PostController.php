@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\Image;
+use App\Models\Tag;
+use App\Models\PostTag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -24,6 +26,8 @@ class PostController extends Controller
             'content' => 'required',
             'image' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 各画像のバリデーション
+            'grades' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
+            'subjects' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
         ]);
         // postテーブルに格納
         $post = new Post;
@@ -32,6 +36,7 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->save();
 
+        // imageテーブルに格納
         if($request->hasFile('image')){
             foreach($request->file('image') as $uploadedFile){
                   // 画像に命名
@@ -47,6 +52,31 @@ class PostController extends Controller
                 $image->save();
 
                 
+            }
+        }
+        //post_tagテーブルにtype=gradeで格納
+        foreach($request->grades as $grade){
+            $tag = Tag::where('name', $grade)->first();
+            if($tag){
+                $tag_id = $tag->id;
+                $post_tag = new PostTag;
+                $post_tag->post_id = $post->id;
+                $post_tag->tag_id = $tag_id;
+                $post_tag->type = 'grade';
+                $post_tag->save();
+            }
+        }
+
+        //post_tagテーブルにtype=subjectで格納
+        foreach($request->subjects as $subject){
+            $tag = Tag::where('name', $subject)->first();
+            if($tag){
+                $tag_id = $tag->id;
+                $post_tag = new PostTag;
+                $post_tag->post_id = $post->id;
+                $post_tag->tag_id = $tag_id;
+                $post_tag->type = 'subject';
+                $post_tag->save();
             }
         }
 

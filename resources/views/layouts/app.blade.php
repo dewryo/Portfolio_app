@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChalkTalk</title>
+    <title>loilotalk</title>
     @vite([ 'resources/js/app.js'])
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
-            <a class="navbar-brand" href="{{ route('home') }}">ChalkTalk</a>
+            <a class="navbar-brand" href="{{ route('home') }}">loilotalk</a>
             <div class="d-flex">
                 <form class="form-inline d-flex mr-2">
                     <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">

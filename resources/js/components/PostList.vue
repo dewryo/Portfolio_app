@@ -38,6 +38,8 @@ export default {
         });
     },
     handleScroll() {
+      if (!this.nextPageUrl) return;
+        
       const totalHeight = document.documentElement.scrollHeight;
       const scrolledHeight = window.scrollY + window.innerHeight;
 

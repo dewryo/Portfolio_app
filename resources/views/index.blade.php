@@ -2,7 +2,7 @@
 
 @section('content')
 <div id="app" class="container">
-    <p></p>
+    <div style="height: 20px;"></div>
     <post-list></post-list>
 </div>
 @endsection

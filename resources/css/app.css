@@ -1,0 +1,24 @@
+/* ヘッダーを固定 */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100; /* 他の要素より前面に表示 */
+    background-color: rgba(0, 0, 0, 0.1); /* 半透明 */
+  }
+  
+  /* フッターを固定 */
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100; /* 他の要素より前面に表示 */
+    background-color: rgba(0, 0, 0, 0.1); /* 半透明 */
+  }
+  
+  /* ヘッダーとフッターによって隠れる部分の調整 */
+  main {
+    margin-top: 60px;  /* ヘッダーの高さに合わせる */
+    margin-bottom: 60px; /* フッターの高さに合わせる */
+  }
+  

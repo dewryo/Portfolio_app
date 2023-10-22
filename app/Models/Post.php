@@ -15,10 +15,15 @@ class Post extends Model
     return $this->hasMany(Image::class);
     }
 
-    public function post_tags()
+    public function postTags()
     {
     return $this->hasMany(PostTag::class);
     }
+
+    public function tags()
+{
+    return $this->belongsToMany(Tag::class, 'post_tags');
+}
 
     /**
      * The attributes that are mass assignable.

@@ -20,12 +20,14 @@ class Controller extends BaseController
         $query = Post::with(['images', 'postTags', 'tags']); //投稿一覧を取得
 
         if($tags && is_array($tags)){
-            $query->whereHas('tags', function($query) use ($tags) {
-                $query->whereIn('name', $tags); // 複数のタグにマッチする投稿を検索
-            });
+            foreach ($tags as $tag) {
+                $query->whereHas('tags', function($query) use ($tag) {
+                    $query->where('name', $tag); // すべての選択されたタグを持つ投稿を検索
+                });
+            }
         }
 
-        $posts = $query -> paginate(10); //tagが空の場合は全投稿取得、tagが取得されている際はタグ名に一致する投稿のみ取得
+        $posts = $query -> paginate(10)->appends(['tag' => $tags]);; //tagが空の場合は全投稿取得、tagが取得されている際はタグ名に一致する投稿のみ取得
         
         if($request->ajax()){
             return response()->json([

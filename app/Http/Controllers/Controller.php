@@ -16,12 +16,12 @@ class Controller extends BaseController
 
     public function showhome(Request $request)
     {
-        $tag = $request->input('tag'); //クエリパラメータからタグを取得
+        $tags = $request->input('tag'); //クエリパラメータからタグを取得
         $query = Post::with(['images', 'postTags', 'tags']); //投稿一覧を取得
 
-        if($tag){
-            $query->whereHas('tags',function($query) use ($tag){
-                $query->where('name',$tag);
+        if($tags && is_array($tags)){
+            $query->whereHas('tags', function($query) use ($tags) {
+                $query->whereIn('name', $tags); // 複数のタグにマッチする投稿を検索
             });
         }
 
@@ -33,7 +33,7 @@ class Controller extends BaseController
                 'next_page_url' => $posts->nextPageUrl(),
             ]);
         }
-        
-        return view('index',['posts' => $posts]);
+
+        return view('index');
     }
 }

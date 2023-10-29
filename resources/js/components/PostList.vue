@@ -15,7 +15,8 @@ export default {
   data() {
     return {
       posts: [],
-      nextPageUrl: null
+      nextPageUrl: null,
+      selectedTags: []
     };
   },
   mounted() {
@@ -27,7 +28,12 @@ export default {
   },
   methods: {
     fetchPosts() {
-      let url = this.nextPageUrl || '/api/posts';
+      let base_url = '/api/posts';
+      if(this.selectedTags.length > 0){
+        const tagsQuery = this.selectedTags.map(tag => `tag[]=${tag}`).join('&');
+        base_url += '?${tagsQuery}';
+      }
+      let url = this.nextPageUrl || base_url;
       axios.get(url)
         .then(response => {
           this.posts = [...this.posts, ...response.data.posts];

@@ -1,8 +1,19 @@
 <template>
-  <div class="container">
-    <PostTagSelector :selectedTags="selectedTags" @tag-selected="addTag" @tag-deselected="removeTag"/>
-    <PostCard v-for="post in posts" :key="post.id" :post="post" />
-  </div>
+<div class="container-fluid">
+    <div class="row">
+
+      <!-- Tag Selector Column -->
+      <div class="col-3 col-md-3">
+        <PostTagSelector :selectedTags="selectedTags" @tag-selected="addTag" @tag-deselected="removeTag"/>
+      </div>
+
+      <!-- Content Column -->
+      <div class="col-9 col-md-9">
+        <PostCard v-for="post in posts" :key="post.id" :post="post" />
+      </div>
+
+    </div>
+</div>
 </template>
 
 <script>

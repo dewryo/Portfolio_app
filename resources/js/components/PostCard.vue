@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-4 mx-auto" style="max-width: 50%;">
+  <div class="col-md-8">
     <div class="card-body">
       <h5 class="card-title">{{ post.title }}</h5>
       <div v-if="post.tags.length">
@@ -18,6 +18,7 @@
         <p>No image available</p>
       </div>
       <p class="card-text">{{ post.content }}</p>
+      <hr>
     </div>
   </div>
 </template>

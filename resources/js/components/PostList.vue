@@ -42,8 +42,9 @@ export default {
         
       const totalHeight = document.documentElement.scrollHeight;
       const scrolledHeight = window.scrollY + window.innerHeight;
+      const Threshold = 200;
 
-      if (scrolledHeight >= totalHeight) {
+      if (scrolledHeight >= totalHeight - Threshold) {
         this.fetchPosts();
       }
     },

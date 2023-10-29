@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <PostTagSelector :selectedTags="selectedTags" @tag-selected="addTag"/>
+    <PostTagSelector :selectedTags="selectedTags" @tag-selected="addTag" @tag-deselected="removeTag"/>
     <PostCard v-for="post in posts" :key="post.id" :post="post" />
   </div>
 </template>
@@ -69,6 +69,16 @@ export default {
         this.fetchPosts();  // タグが追加されたら再度フェッチ
       }
     },
+    removeTag(tag) {
+      const index = this.selectedTags.indexOf(tag);
+      if (index !== -1) {
+        this.posts = [];
+        this.nextPageUrl = null;
+        this.selectedTags.splice(index, 1);  // ここを修正
+        this.updateURL();
+        this.fetchPosts();  // タグが削除されたら再度フェッチ
+  }
+},
     updateURL() {
       const newQuery = this.selectedTags.join(',');
       const currentPath = window.location.pathname;

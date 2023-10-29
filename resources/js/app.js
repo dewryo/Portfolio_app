@@ -13,4 +13,5 @@ app.component('image-preview', ImagePreview);
 app.component('tag-selector', TagSelector);
 app.component('post-list', PostList);
 
+
 app.mount('#app');

@@ -11,10 +11,6 @@
         <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
             <a class="navbar-brand" href="{{ route('home') }}">loilotalk</a>
             <div class="d-flex">
-                <form class="form-inline d-flex mr-2">
-                    <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
                 <div>
                     @if (Auth::check())
                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
@@ -40,7 +36,7 @@
     </main>
 
     <footer class="text-center py-2">
-        <p class="mb-0">&copy; 2023 ChalkTalk</p>
+        <p class="mb-0">&copy; 2023 loilotalk</p>
     </footer>
 </body>
 </html>

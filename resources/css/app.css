@@ -1,4 +1,9 @@
 /* ヘッダーを固定 */
+
+html {
+  overflow-y: scroll;
+}
+
 header {
     position: fixed;
     top: 0;
@@ -20,5 +25,12 @@ header {
   main {
     margin-top: 60px;  /* ヘッダーの高さに合わせる */
     margin-bottom: 60px; /* フッターの高さに合わせる */
+  }
+  
+  .sticky {
+    position: -webkit-sticky; /* サポートしていないブラウザのためのベンダープレフィックス */
+    position: sticky;
+    top: 80px; /* 画面の上端からの距離 */
+    z-index: 1000; /* 必要に応じてz-indexを調整して、他の要素の上に表示されるようにする */
   }
   

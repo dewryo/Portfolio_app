@@ -31,7 +31,8 @@ export default {
     return {
       posts: [],
       nextPageUrl: null,
-      selectedTags: []
+      selectedTags: [],
+      isLoading: false,
     };
   },
   mounted() {
@@ -43,6 +44,8 @@ export default {
   },
   methods: {
     fetchPosts() {
+      if (this.isLoading) return;
+      this.isLoading = true;
       let base_url = '/api/posts';
       if(this.selectedTags.length > 0){
         const tagsQuery = this.selectedTags.map(tag => `tag[]=${tag}`).join('&');
@@ -56,9 +59,11 @@ export default {
           console.log(this.posts);
           this.nextPageUrl = response.data.next_page_url;
           console.log(this.nextPageUrl);
+          this.isLoading = false;
         })
         .catch(error => {
           console.error('An error occurred while fetching data: ', error);
+          this.isLoading = false;
         });
     },
 
@@ -74,7 +79,7 @@ export default {
       const Threshold = 400;
 
       if (scrolledHeight >= totalHeight - Threshold) {
-        this.fetchPostsDebounced();
+        this.fetchPosts();
       }
     },
     addTag(tag) {

@@ -20,6 +20,7 @@
 import axios from 'axios';
 import PostCard from './PostCard.vue';
 import PostTagSelector from './PostTagSelector.vue';
+import _ from 'lodash';
 
 export default {
   components: {
@@ -60,15 +61,20 @@ export default {
           console.error('An error occurred while fetching data: ', error);
         });
     },
+
+    fetchPostsDebounced: _.debounce(function() {
+         this.fetchPosts();
+       }, 300),  // 300ミリ秒の遅延を持たせる
+
     handleScroll() {
       if (!this.nextPageUrl) return;
         
       const totalHeight = document.documentElement.scrollHeight;
       const scrolledHeight = window.scrollY + window.innerHeight;
-      const Threshold = 200;
+      const Threshold = 400;
 
       if (scrolledHeight >= totalHeight - Threshold) {
-        this.fetchPosts();
+        this.fetchPostsDebounced();
       }
     },
     addTag(tag) {
@@ -77,7 +83,7 @@ export default {
         this.nextPageUrl = null;
         this.selectedTags.push(tag);
         this.updateURL(); 
-        this.fetchPosts();  // タグが追加されたら再度フェッチ
+        this.fetchPostsDebounced();  // タグが追加されたら再度フェッチ
       }
     },
     removeTag(tag) {
@@ -87,7 +93,7 @@ export default {
         this.nextPageUrl = null;
         this.selectedTags.splice(index, 1);  // ここを修正
         this.updateURL();
-        this.fetchPosts();  // タグが削除されたら再度フェッチ
+        this.fetchPostsDebounced();  // タグが削除されたら再度フェッチ
   }
 },
     updateURL() {

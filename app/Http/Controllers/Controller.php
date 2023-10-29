@@ -16,7 +16,16 @@ class Controller extends BaseController
 
     public function showhome(Request $request)
     {
-        $posts = Post::with(['images', 'postTags', 'tags'])->paginate(10);
+        $tag = $request->input('tag'); //クエリパラメータからタグを取得
+        $query = Post::with(['images', 'postTags', 'tags']); //投稿一覧を取得
+
+        if($tag){
+            $query->whereHas('tags',function($query) use ($tag){
+                $query->where('name',$tag);
+            });
+        }
+
+        $posts = $query -> paginate(10); //tagが空の場合は全投稿取得、tagが取得されている際はタグ名に一致する投稿のみ取得
         
         if($request->ajax()){
             return response()->json([
@@ -24,6 +33,7 @@ class Controller extends BaseController
                 'next_page_url' => $posts->nextPageUrl(),
             ]);
         }
+        
         return view('index',['posts' => $posts]);
     }
 }

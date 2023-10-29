@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+        <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
             <a class="navbar-brand" href="{{ route('home') }}">loilotalk</a>
             <div class="d-flex">
                 <form class="form-inline d-flex mr-2">
@@ -39,7 +39,7 @@
         @yield('content')
     </main>
 
-    <footer class="bg-light text-center py-4">
+    <footer class="text-center py-2">
         <p class="mb-0">&copy; 2023 ChalkTalk</p>
     </footer>
 </body>

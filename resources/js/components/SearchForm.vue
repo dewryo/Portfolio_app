@@ -1,9 +1,13 @@
 <template>
-<div class="col-md-9">
-  <form @submit.prevent="searchPosts">
-    <input type="search" v-model="keyword" class="form-control" placeholder="検索...">
-  </form>
-</div>
+    <div class="container  sticky ">
+        <div class="row justify-content-end">
+            <div class="col-md-9">
+                <form @submit.prevent="searchPosts">
+                    <input type="search" v-model="keyword" class="form-control" placeholder="検索...">
+                </form>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup>
@@ -11,13 +15,14 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 const keyword = ref('');
+const emit = defineEmits(); 
 
 const searchPosts = async () => {
   const response = await axios.get('/api/posts', {
     params: { keyword: keyword.value }
     
   });
-  console.log(response);
-
+  //親コンポーネントへデータを送る
+  emit('update-posts',response.data);
 };
 </script>

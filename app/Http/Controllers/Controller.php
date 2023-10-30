@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Image;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,8 +14,14 @@ class Controller extends BaseController
 
     public function showhome(Request $request)
     {
+        $keyword = $request->input('keyword');
         $tags = $request->input('tag'); //クエリパラメータからタグを取得
         $query = Post::with(['images', 'postTags', 'tags']); //投稿一覧を取得
+
+        if(!empty($keyword)){
+            $query->where('title', 'LIKE', "%{$keyword}%")
+            ->orWhere('content', 'LIKE', "%{$keyword}%");
+        }
 
         if($tags && is_array($tags)){
             foreach ($tags as $tag) {
@@ -27,7 +31,7 @@ class Controller extends BaseController
             }
         }
 
-        $posts = $query -> paginate(10)->appends(['tag' => $tags]);; //tagが空の場合は全投稿取得、tagが取得されている際はタグ名に一致する投稿のみ取得
+        $posts = $query -> paginate(10)->appends(['tag' => $tags]);
         
         if($request->ajax()){
             return response()->json([

@@ -1,10 +1,7 @@
 <template>
-  <div class="container  sticky ">
+  <div class="container  sticky-tagselector ">
     <div class="row justify-content-end">
-      <!-- Search Form Column -->
-    <SearchForm></SearchForm>
-    <div style="height: 20px;"></div>
-      <!-- Tag Selector Column -->
+
       <div class="col-md-9">
         <div>
           <h5 class="mb-3">学年</h5>
@@ -40,12 +37,9 @@
 </template>
 
 <script>
-import SearchForm from './SearchForm.vue';
+
 
 export default {
-  components: {
-    SearchForm,
-  },
   props: {
     selectedTags: {
       type: Array,

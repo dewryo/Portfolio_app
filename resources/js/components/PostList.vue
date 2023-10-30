@@ -1,11 +1,16 @@
 <template>
-<div class="container-fluid">
-    <div class="row">
-
+  <div class="container-fluid">
+      <div class="row">
+        
+      <!-- Search Form Column -->
+        <div class="col-3 col-md-3">
+          <SearchForm @update-posts="handleUpdatePosts"/>
+      
+          <div style="height: 20px;"></div>
       <!-- Tag Selector Column -->
-      <div class="col-3 col-md-3">
-        <PostTagSelector :selectedTags="selectedTags" @tag-selected="addTag" @tag-deselected="removeTag"/>
-      </div>
+      
+          <PostTagSelector :selectedTags="selectedTags" @tag-selected="addTag" @tag-deselected="removeTag"/>
+         </div>
 
       <!-- Content Column -->
       <div class="col-9 col-md-9">
@@ -13,18 +18,20 @@
       </div>
 
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
 import PostCard from './PostCard.vue';
 import PostTagSelector from './PostTagSelector.vue';
+import SearchForm from './SearchForm.vue';
 import _ from 'lodash';
 
 export default {
   components: {
     PostCard,
+    SearchForm,
     PostTagSelector
   },
   data() {
@@ -82,6 +89,13 @@ export default {
         this.fetchPosts();
       }
     },
+    handleUpdatePosts(newData) {
+      // ここで newData を使って何か処理をする
+      // 例: posts 配列と nextPage を更新
+      this.posts = newData.posts;
+      this.nextPageUrl = newData.next_page_url;
+    },
+
     addTag(tag) {
       if (!this.selectedTags.includes(tag)) {
         this.posts = [];

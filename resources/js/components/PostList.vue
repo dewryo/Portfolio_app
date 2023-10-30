@@ -1,9 +1,11 @@
 <template>
-<div class="container-fluid">
+  <div class="container-fluid">
     <div class="row">
-
-      <!-- Tag Selector Column -->
+      <!-- Search Form Column -->
       <div class="col-3 col-md-3">
+        <SearchForm @update-posts="handleUpdatePosts"/>
+        <div style="height: 20px;"></div>
+        <!-- Tag Selector Column -->
         <PostTagSelector :selectedTags="selectedTags" @tag-selected="addTag" @tag-deselected="removeTag"/>
       </div>
 
@@ -11,102 +13,90 @@
       <div class="col-9 col-md-9">
         <PostCard v-for="post in posts" :key="post.id" :post="post" />
       </div>
-
     </div>
-</div>
+  </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import axios from 'axios';
 import PostCard from './PostCard.vue';
 import PostTagSelector from './PostTagSelector.vue';
+import SearchForm from './SearchForm.vue';
 import _ from 'lodash';
 
-export default {
-  components: {
-    PostCard,
-    PostTagSelector
-  },
-  data() {
-    return {
-      posts: [],
-      nextPageUrl: null,
-      selectedTags: [],
-      isLoading: false,
-    };
-  },
-  mounted() {
-    this.fetchPosts();
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
-  methods: {
-    fetchPosts() {
-      if (this.isLoading) return;
-      this.isLoading = true;
-      let base_url = '/api/posts';
-      if(this.selectedTags.length > 0){
-        const tagsQuery = this.selectedTags.map(tag => `tag[]=${tag}`).join('&');
-        base_url += `?${tagsQuery}`;
-      }
-      let url = this.nextPageUrl || base_url;
-      console.log(url);
-      axios.get(url)
-        .then(response => {
-          this.posts = [...this.posts, ...response.data.posts];
-          console.log(this.posts);
-          this.nextPageUrl = response.data.next_page_url;
-          console.log(this.nextPageUrl);
-          this.isLoading = false;
-        })
-        .catch(error => {
-          console.error('An error occurred while fetching data: ', error);
-          this.isLoading = false;
-        });
-    },
+const posts = ref([]);
+const nextPageUrl = ref(null);
+const selectedTags = ref([]);
+const isLoading = ref(false);
 
-    fetchPostsDebounced: _.debounce(function() {
-         this.fetchPosts();
-       }, 300),  // 300ミリ秒の遅延を持たせる
+const fetchPosts = async () => {
+  if (isLoading.value) return;
+  isLoading.value = true;
 
-    handleScroll() {
-      if (!this.nextPageUrl) return;
-        
-      const totalHeight = document.documentElement.scrollHeight;
-      const scrolledHeight = window.scrollY + window.innerHeight;
-      const Threshold = 400;
-
-      if (scrolledHeight >= totalHeight - Threshold) {
-        this.fetchPosts();
-      }
-    },
-    addTag(tag) {
-      if (!this.selectedTags.includes(tag)) {
-        this.posts = [];
-        this.nextPageUrl = null;
-        this.selectedTags.push(tag);
-        this.updateURL(); 
-        this.fetchPostsDebounced();  // タグが追加されたら再度フェッチ
-      }
-    },
-    removeTag(tag) {
-      const index = this.selectedTags.indexOf(tag);
-      if (index !== -1) {
-        this.posts = [];
-        this.nextPageUrl = null;
-        this.selectedTags.splice(index, 1);  // ここを修正
-        this.updateURL();
-        this.fetchPostsDebounced();  // タグが削除されたら再度フェッチ
+  let base_url = '/api/posts';
+  if (selectedTags.value.length > 0) {
+    const tagsQuery = selectedTags.value.map(tag => `tag[]=${tag}`).join('&');
+    base_url += `?${tagsQuery}`;
   }
-},
-    updateURL() {
-      const newQuery = this.selectedTags.join(',');
-      const currentPath = window.location.pathname;
-      const newURL = `${currentPath}?tags=${newQuery}`;
-      window.history.pushState({}, '', newURL);
-},
+
+  let url = nextPageUrl.value || base_url;
+
+  try {
+    const response = await axios.get(url);
+    posts.value = [...posts.value, ...response.data.posts];
+    nextPageUrl.value = response.data.next_page_url;
+  } catch (error) {
+    console.error('An error occurred while fetching data: ', error);
+  } finally {
+    isLoading.value = false;
   }
-}
+};
+
+const fetchPostsDebounced = _.debounce(fetchPosts, 300);
+
+const handleScroll = () => {
+  if (!nextPageUrl.value) return;
+
+  const totalHeight = document.documentElement.scrollHeight;
+  const scrolledHeight = window.scrollY + window.innerHeight;
+  const threshold = 400;
+
+  if (scrolledHeight >= totalHeight - threshold) {
+    fetchPosts();
+  }
+};
+
+const handleUpdatePosts = (newData) => {
+  posts.value = newData.posts;
+  nextPageUrl.value = newData.next_page_url;
+};
+
+const addTag = (tag) => {
+  if (!selectedTags.value.includes(tag)) {
+    posts.value = [];
+    nextPageUrl.value = null;
+    selectedTags.value.push(tag);
+    fetchPostsDebounced();
+  }
+};
+
+const removeTag = (tag) => {
+  const index = selectedTags.value.indexOf(tag);
+  if (index !== -1) {
+    posts.value = [];
+    nextPageUrl.value = null;
+    selectedTags.value.splice(index, 1);
+    fetchPostsDebounced();
+  }
+};
+
+onMounted(() => {
+  fetchPosts();
+  window.addEventListener('scroll', handleScroll);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>

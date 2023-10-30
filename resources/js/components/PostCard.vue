@@ -23,10 +23,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    post: Object
+<script setup>
+import { ref, defineProps } from 'vue';
+
+// propsを定義
+const props = defineProps({
+  post: {
+    type: Object,
+    default: () => ({ tags: [], images: [] })
   }
-}
+});
+
 </script>

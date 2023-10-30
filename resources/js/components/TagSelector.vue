@@ -22,24 +22,19 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      grades: ['1年', '2年', '3年', '4年', '5年', '6年'],
-      subjects: ['国語', '算数', '理科', '社会', '音楽', '図工', '体育', '家庭科', '総合', '道徳', '学級活動'],
-      selectedGrades: [],
-      selectedSubjects: []
-    }
-  },
-  methods: {
-    toggleTag(type, tag) {
-      if (type === 'grade') {
-        this.selectedGrades.includes(tag) ? this.selectedGrades.splice(this.selectedGrades.indexOf(tag), 1) : this.selectedGrades.push(tag);
-      } else if (type === 'subject') {
-        this.selectedSubjects.includes(tag) ? this.selectedSubjects.splice(this.selectedSubjects.indexOf(tag), 1) : this.selectedSubjects.push(tag);
-      }
-    }
+<script setup>
+import { ref } from 'vue';
+
+const grades = ['1年', '2年', '3年', '4年', '5年', '6年'];
+const subjects = ['国語', '算数', '理科', '社会', '音楽', '図工', '体育', '家庭科', '総合', '道徳', '学級活動'];
+const selectedGrades = ref([]);
+const selectedSubjects = ref([]);
+
+const toggleTag = (type, tag) => {
+  if (type === 'grade') {
+    selectedGrades.value.includes(tag) ? selectedGrades.value.splice(selectedGrades.value.indexOf(tag), 1) : selectedGrades.value.push(tag);
+  } else if (type === 'subject') {
+    selectedSubjects.value.includes(tag) ? selectedSubjects.value.splice(selectedSubjects.value.indexOf(tag), 1) : selectedSubjects.value.push(tag);
   }
 }
 </script>

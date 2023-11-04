@@ -32,7 +32,7 @@ class Post extends Model
     
     public function savedByUsers()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'post_user', 'post_id', 'user_id');
     }
     /**
      * The attributes that are mass assignable.

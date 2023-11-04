@@ -19,7 +19,7 @@
       </div>
       <p class="card-text">{{ post.content }}</p>
       <LikeButton :post="post"/>
-      <SavePostButton :postId="post.id"/>
+      <SavePostButton :postId="post.id" :is-saved="post.is_saved_by_user" />
       <hr>
     </div>
   </div>

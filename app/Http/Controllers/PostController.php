@@ -45,6 +45,7 @@ class PostController extends Controller
         // 各投稿に対して、ログイン中のユーザーがいいねしているかどうかをチェック
         $posts->each(function ($post) use ($userId) {
             $post->is_liked_by_user = $post->likes->contains('user_id', $userId);
+            $post->is_saved_by_user = $post->savedByUsers->contains($userId);
         });
                 
         // AJAXリクエストの場合はJSONレスポンスを返す

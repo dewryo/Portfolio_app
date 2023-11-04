@@ -40,7 +40,8 @@ export default{
     },
 
     setup(props){
-        const isLiked = ref(false);
+        const isLiked = ref(props.post.is_liked_by_user);
+        console.log(props.post.is_liked_by_user);
         const likesCount = ref(props.post.likes.length || 0);
         const errorMessage = ref('');
 

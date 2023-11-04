@@ -1,5 +1,5 @@
 <template>
-  <div class="container  sticky-tagselector ">
+  
     <div class="row justify-content-end">
 
       <div class="col-md-9">
@@ -27,13 +27,8 @@
           </div>
         </div>
       </div>
-
-      <!-- Content Column -->
-      <div class="col-md-9">
-        <!-- Your content goes here -->
-      </div>
     </div>
-  </div>
+  
 </template>
 
 <script setup>

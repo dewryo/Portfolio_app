@@ -32,7 +32,7 @@ import LikeButton from './LikeButton.vue';
 const props = defineProps({
   post: {
     type: Object,
-    default: () => ({ tags: [], images: [], likes: [] })
+    default: () => ({ tags: [], images: [], likes: [], is_liked_by_user: false})
   }
 });
 

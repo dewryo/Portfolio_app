@@ -16,7 +16,7 @@ class PostController extends Controller
     {
         $keyword = $request->input('keyword');
         $tags = $request->input('tag'); //クエリパラメータからタグを取得
-        $query = Post::with(['images', 'postTags', 'tags']); //投稿一覧を取得
+        $query = Post::with(['images', 'postTags', 'tags','likes']); //投稿一覧を取得
 
         if(!empty($keyword)){
             $query->where('title', 'LIKE', "%{$keyword}%")

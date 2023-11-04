@@ -41,7 +41,7 @@ export default{
 
     setup(props){
         const isLiked = ref(false);
-        const likesCount = ref(props.post.likes_count || 0);
+        const likesCount = ref(props.post.likes.length || 0);
         const errorMessage = ref('');
 
         const toggleLike = () =>{

@@ -26,4 +26,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/posts', [PostController::class, 'showHome']); 
 
 // いいねが押されたときに実行するルート（認証済みユーザーのみ）
-Route::post('/posts/{post}/likes', [LikeController::class, 'toggleLike']);
+Route::middleware('web')->group(function () {
+    Route::post('/posts/{post}/likes', [LikeController::class, 'toggleLike']);
+});

@@ -5,7 +5,7 @@ import { createApp } from 'vue';
 import ImagePreview from './components/ImagePreview.vue';
 import TagSelector from './components/TagSelector.vue';
 import PostList from './components/PostList.vue'
-
+import '@fortawesome/fontawesome-free/css/all.css';
 
 const app = createApp({});
 

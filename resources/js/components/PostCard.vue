@@ -18,6 +18,7 @@
         <p>No image available</p>
       </div>
       <p class="card-text">{{ post.content }}</p>
+      <LikeButton :post="post"/>
       <hr>
     </div>
   </div>
@@ -25,12 +26,13 @@
 
 <script setup>
 import { ref, defineProps } from 'vue';
+import LikeButton from './LikeButton.vue';
 
 // propsを定義
 const props = defineProps({
   post: {
     type: Object,
-    default: () => ({ tags: [], images: [] })
+    default: () => ({ tags: [], images: [], likes: [] })
   }
 });
 

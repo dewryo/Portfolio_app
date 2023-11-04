@@ -4,7 +4,7 @@
       <!-- Search Form Column -->
       <div class="col-3 col-md-3">
         <SearchForm @update-posts="handleUpdatePosts"/>
-        <div style="height: 20px;"></div>
+        <div style="height: 25px;"></div>
         <!-- Tag Selector Column -->
         <PostTagSelector :selectedTags="selectedTags" @tag-selected="addTag" @tag-deselected="removeTag"/>
       </div>

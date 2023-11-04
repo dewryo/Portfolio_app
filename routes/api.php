@@ -23,7 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // トップページの投稿一覧を取得するルート
+Route::middleware('web')->group(function () {
 Route::get('/posts', [PostController::class, 'showHome']); 
+});
 
 // いいねが押されたときに実行するルート（認証済みユーザーのみ）
 Route::middleware('web')->group(function () {

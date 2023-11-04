@@ -1,5 +1,5 @@
 <template>
-    <div class="container  sticky ">
+    
         <div class="row justify-content-end">
             <div class="col-md-9">
                 <form @submit.prevent="searchPosts">
@@ -7,7 +7,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    
 </template>
 
 <script setup>

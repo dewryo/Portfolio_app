@@ -1,12 +1,15 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <!-- Search Form Column -->
       <div class="col-3 col-md-3">
+        <div class="container  sticky ">
+        <!-- Search Form Column -->
         <SearchForm @update-posts="handleUpdatePosts"/>
-        <div style="height: 25px;"></div>
+        
+        <div style="height: 10px;"></div>
         <!-- Tag Selector Column -->
         <PostTagSelector :selectedTags="selectedTags" @tag-selected="addTag" @tag-deselected="removeTag"/>
+        </div>
       </div>
 
       <!-- Content Column -->

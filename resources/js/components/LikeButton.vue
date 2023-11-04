@@ -3,6 +3,28 @@
         <i :class="['fa-heart', isLiked ? 'fas' : 'far', 'fa-lg']"></i>
         <span class="likes-count">{{ likesCount }}</span>
     </button>
+        <!-- Bootstrap モーダル -->
+    <div v-if="errorMessage" class="modal d-block" tabindex="-1" role="dialog" style="background-color: rgba(0, 0, 0, 0.5);">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" :class="['like-button','close']" @click="clearError">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+                    <p>{{ errorMessage }}</p>
+                    <div class="d-flex flex-column align-items-stretch">
+                        <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'mb-2', 'w-100']" href="/login">ログイン</a>
+                         <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'w-100']" href="/register">新規登録</a>
+                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @click="clearError">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -20,21 +42,31 @@ export default{
     setup(props){
         const isLiked = ref(false);
         const likesCount = ref(props.post.likes_count || 0);
+        const errorMessage = ref('');
 
         const toggleLike = () =>{
             axios.post(`/api/posts/${props.post.id}/likes`)
             .then(response => {
                 isLiked.value = response.data.isLiked;
                 likesCount.value = response.data.likesCount;
+                 errorMessage.value = ''; // エラーがない場合はメッセージをクリア
             })
             .catch(error =>{
                 console.error(error);
+                // エラーレスポンスからエラーメッセージを取得して設定
+                errorMessage.value = error.response && error.response.data.message ? error.response.data.message : 'ログインすると「いいね」を送ることができます';
             });
+        };
+
+        const clearError = () => {
+            errorMessage.value = '';
         };
 
         return{
             isLiked,
             likesCount,
+            errorMessage,
+            clearError,
             toggleLike,
         };
     }

@@ -21,9 +21,14 @@ class Post extends Model
     }
 
     public function tags()
-{
+    {
     return $this->belongsToMany(Tag::class, 'post_tags');
-}
+    }
+
+    public function likes()
+    {
+    return $this->hasMany(Like::class);
+    }
 
     /**
      * The attributes that are mass assignable.

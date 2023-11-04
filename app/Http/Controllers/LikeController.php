@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use Illuminate\Support\Facades\Auth; 
 
 class LikeController extends Controller
 {
@@ -10,6 +12,11 @@ class LikeController extends Controller
     public function toggleLike(Post $post)
     {
         $user = Auth::user();
+            // ユーザーがログインしていることを確認
+         if (!$user) {
+            // ユーザーがログインしていない場合はエラーレスポンスを返す
+             return response()->json(['error' => 'Authentication required'], 401);
+        }
         //ユーザーが既にいいねしているかチェック
         $like = $user->likes()->where('post_id',$post->id)->first();
      
@@ -23,11 +30,11 @@ class LikeController extends Controller
             $isLiked = true;
         }
         //最新のいいね数を取得
-        $LikeCount = $post->likes()->count();
+        $likesCount = $post->likes()->count();
 
-        return response()->json{[
+        return response()->json([
             'isLiked' => $isLiked,
-            'LikeCount' => $LikeCount,
-        ]};
+            'likesCount' => $likesCount,
+        ]);
     }
 }

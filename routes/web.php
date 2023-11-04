@@ -20,7 +20,7 @@ use App\Http\Controllers\Controller;
 */
 //トップ画面表示
 
-Route::get('/posts',[Controller::class, 'showhome'])->name('home');
+Route::get('/posts',[PostController::class, 'showhome'])->name('home');
 
 // ログインページ
 Route::get('/login', [AuthController::class, 'showLoginForm'])->middleware('guest') ->name('login');

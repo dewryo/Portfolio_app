@@ -21,7 +21,7 @@ class AuthController extends Controller
         $remember = $request->input('remember');
     
         if (Auth::attempt($credentials,$remember)) {
-            return redirect()->intended('/');
+            return redirect()->intended('/posts');
         }
     
         return back()->withErrors(['email' => '認証に失敗しました。']);

@@ -19,6 +19,7 @@
       </div>
       <p class="card-text">{{ post.content }}</p>
       <LikeButton :post="post"/>
+      <SavePostButton :postId="post.id"/>
       <hr>
     </div>
   </div>
@@ -27,6 +28,7 @@
 <script setup>
 import { ref, defineProps } from 'vue';
 import LikeButton from './LikeButton.vue';
+import SavePostButton from './SavePostButton.vue';
 
 // propsを定義
 const props = defineProps({

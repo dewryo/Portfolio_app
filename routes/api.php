@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\SavedPostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,13 @@ Route::get('/posts', [PostController::class, 'showHome']);
 // いいねが押されたときに実行するルート（認証済みユーザーのみ）
 Route::middleware('web')->group(function () {
     Route::post('/posts/{post}/likes', [LikeController::class, 'toggleLike']);
+});
+
+// 投稿を保存するためのルート
+Route::middleware('web')->group(function () {
+    Route::post('/posts/{id}/save', [SavedPostsController::class, 'store']);
+});
+// 保存した投稿を解除するためのルート
+Route::middleware('web')->group(function () {
+    Route::delete('/posts/{id}/save', [SavedPostsController::class, 'destroy']);
 });

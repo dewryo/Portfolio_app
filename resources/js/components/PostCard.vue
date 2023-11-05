@@ -20,8 +20,16 @@
         </div>
         <p class="card-text">{{ post.content }}</p>
        </div>
-      <LikeButton :post="post"/>
-      <SavePostButton :postId="post.id" :is-saved="post.is_saved_by_user" />
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <LikeButton :post="post"/>
+          <SavePostButton :postId="post.id" :is-saved="post.is_saved_by_user" />
+        </div>
+        <div class="d-flex align-items-center">
+          <img :src="`/storage/profile_images/${post.user.profile_image || 'default.png'}`" alt="プロフィール画像" class="profile-image mx-3">
+          <span>{{ post.user.name}}</span>
+        </div>
+      </div>
       <hr>
     </div>
   </div>
@@ -36,7 +44,7 @@ import SavePostButton from './SavePostButton.vue';
 const props = defineProps({
   post: {
     type: Object,
-    default: () => ({ tags: [], images: [], likes: [], is_liked_by_user: false})
+    default: () => ({ tags: [], images: [], likes: [], is_liked_by_user: false, user:Object})
   }
 });
 

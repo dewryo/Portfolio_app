@@ -4,12 +4,23 @@ html {
   overflow-y: scroll;
 }
 
+
+.profile-image {
+  /* 画像を円形にする */
+  border-radius: 50%;
+  /* 画像のサイズを設定 */
+  width: 40px;   /* あるいは任意のサイズ */
+  height: 40px;  /* widthとheightは同じ値にする */
+  object-fit: cover;  /* 画像の比率を保ちつつ、フレームに収める */
+}
+
+
 header {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 100; /* 他の要素より前面に表示 */
-    background-color: rgba(0, 0, 0, 0.1); /* 半透明 */
+    background-color: rgb(200, 200, 200);
   }
   
   /* フッターを固定 */
@@ -18,9 +29,12 @@ header {
     bottom: 0;
     width: 100%;
     z-index: 100; /* 他の要素より前面に表示 */
-    background-color: rgba(0, 0, 0, 0.1); /* 半透明 */
+    background-color: rgb(200, 200, 200);
   }
   
+ 
+
+
   /* ヘッダーとフッターによって隠れる部分の調整 */
   main {
     margin-top: 60px;  /* ヘッダーの高さに合わせる */

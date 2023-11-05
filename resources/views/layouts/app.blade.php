@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+        <nav class="navbar navbar-expand-lg justify-content-between">
             <a class="navbar-brand" href="{{ route('home') }}">loilotalk</a>
             <div class="d-flex">
                 <!-- Authentication Links -->
@@ -22,6 +22,7 @@
                 @else
                     <div class="nav-item dropdown mx-3">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <img src="/storage/profile_images/{{ Auth::user()->profile_image }}" alt="プロフィール画像" class="profile-image">
                             {{ Auth::user()->name }}
                         </a>
 
@@ -54,8 +55,7 @@
         <p class="mb-0">&copy; 2023 loilotalk</p>
     </footer>
 
-    <!-- Scripts -->
-
     
 </body>
 </html>
+

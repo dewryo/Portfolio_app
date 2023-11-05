@@ -66,4 +66,11 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         return view('post.show', compact('post'));
     }
+
+    //投稿フォーム画面表示
+    public function showPostForm()
+    {
+        return view('post.post_form');
+    }
+
 }

@@ -26,7 +26,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">プロフィール編集</a>
+                            <a class="dropdown-item" href="{{ route('profile.edit') }}">プロフィール編集</a>
                             <a class="dropdown-item" href="{{ route('post') }}">新規投稿</a>
                             <a class="dropdown-item" href="#">投稿一覧</a>
                             <a class="dropdown-item" href="#">保存した投稿</a>

@@ -59,4 +59,11 @@ class PostController extends Controller
         // 通常のリクエストの場合はビューを返す
         return view('index', ['posts' => $posts]);
     }
+
+    //投稿詳細画面表示
+    public function showPost($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('post.show', compact('post'));
+    }
 }

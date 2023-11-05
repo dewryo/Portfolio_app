@@ -16,6 +16,11 @@ class SavedPostsController extends Controller
         $user = Auth::user();
         $post = Post::findOrFail($id);
 
+        if (!$user) {
+            // ユーザーがログインしていない場合はエラーレスポンスを返す
+             return response()->json(['error' => 'Authentication required'], 401);
+        }
+
         // 既に保存されているか確認
         if ($user->savedPosts()->where('post_id', $post->id)->exists()) {
             return response()->json(['message' => '既に保存されています。'], 409);

@@ -1,23 +1,25 @@
 <template>
   <div class="col-md-8">
     <div class="card-body">
-      <h5 class="card-title">{{ post.title }}</h5>
-      <div v-if="post.tags.length">
-        <span v-for="tag in post.tags" :key="tag.id" class="badge badge-primary" style="background-color: rgb(92, 122, 255); color: white; margin-right: 8px;">
-          {{ tag.name }}
-        </span>
-      </div>
-      <div v-else>
-        <p>No tag available</p>
-      </div>
-      <div style="height: 10px;"></div>
-      <div v-if="post.images.length">
-        <img :src="post.images[0].file_path" :alt="post.images[0].file_name" class="img-fluid" style="max-height: 500px; width: auto;">
-      </div>
-      <div v-else>
-        <p>No image available</p>
-      </div>
-      <p class="card-text">{{ post.content }}</p>
+      <div @click="navigateToPost(post.id)" class="post-item">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <div v-if="post.tags.length">
+          <span v-for="tag in post.tags" :key="tag.id" class="badge badge-primary" style="background-color: rgb(92, 122, 255); color: white; margin-right: 8px;">
+            {{ tag.name }}
+          </span>
+        </div>
+        <div v-else>
+          <p>No tag available</p>
+        </div>
+        <div style="height: 10px;"></div>
+        <div v-if="post.images.length">
+          <img :src="post.images[0].file_path" :alt="post.images[0].file_name" class="img-fluid" style="max-height: 500px; width: auto;">
+        </div>
+        <div v-else>
+          <p>No image available</p>
+        </div>
+        <p class="card-text">{{ post.content }}</p>
+       </div>
       <LikeButton :post="post"/>
       <SavePostButton :postId="post.id" :is-saved="post.is_saved_by_user" />
       <hr>
@@ -38,4 +40,22 @@ const props = defineProps({
   }
 });
 
+function navigateToPost(postId) {
+  window.location.href = `/posts/${postId}`;
+}
+
+
 </script>
+
+<style scoped>
+.post-item {
+  /* 通常時のスタイル */
+  transition: background-color 0.3s ease;
+}
+
+.post-item:hover {
+  /* ホバー時のスタイル */
+  background-color: #f5f5f5; /* 例: 薄い灰色に変更 */
+  cursor: pointer; /* マウスカーソルを指の形に変更 */
+}
+</style>

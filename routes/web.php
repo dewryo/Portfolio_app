@@ -39,3 +39,6 @@ Route::post('/register', [RegisterController::class,'register']);
 Route::get('/posts/form', [PostController::class, 'showPostForm'])->middleware('auth')->name('post');
 //新規投稿処理
 Route::post('/posts', [PostController::class, 'store']);
+
+//投稿詳細画面の表示
+Route::get('/posts/{post}', [PostController::class, 'showPost'])->name('post.show');

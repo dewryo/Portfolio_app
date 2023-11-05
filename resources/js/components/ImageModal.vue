@@ -3,8 +3,8 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Image Preview</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="closeModal"></button>
+          
+
         </div>
         <div class="modal-body">
           <img :src="image.file_path" :alt="image.alt_text || 'Post Image'" class="img-fluid">
@@ -69,5 +69,35 @@ const closeModal = () => {
   height: auto; /* 元の画像の高さを維持 */
   max-width: 100%; /* コンテナが小さい場合は幅を調整 */
   max-height: calc(100vh - 60px); /* 画面の高さに合わせて高さを調整 */
+}
+
+/* モーダルコンテンツの背景とボーダーを透明に */
+.modal-content {
+  background: transparent;
+  border: none;
+}
+
+/* モーダルヘッダーとフッターの背景を透明に */
+.modal-header,
+.modal-footer {
+  background: transparent;
+  border: none;
+}
+
+/* クローズボタンとフッターのボタンの文字色を白色に */
+.modal-header .btn-close,
+.modal-footer .btn {
+  color: #fff;
+}
+
+/* クローズボタンの背景を透明に */
+.modal-header .btn-close {
+  background: transparent;
+}
+
+/* オプショナル: クローズボタンのホバースタイル */
+.modal-header .btn-close:hover {
+  color: #aaa; /* ホバー時の色を指定 */
+  background: transparent;
 }
 </style>

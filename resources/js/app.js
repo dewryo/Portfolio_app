@@ -1,5 +1,6 @@
 import './bootstrap.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../css/app.css';
 import { createApp } from 'vue';
 import ImagePreview from './components/ImagePreview.vue';

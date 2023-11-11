@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Controller;
 
 
@@ -42,3 +43,9 @@ Route::post('/posts', [PostController::class, 'store']);
 
 //投稿詳細画面の表示
 Route::get('/posts/{post}', [PostController::class, 'showPost'])->name('post.show');
+
+
+// プロフィール編集画面
+Route::get('/profile/edit', [ProfileController::class,'edit'])->name('profile.edit');
+// プロフィール更新
+Route::put('/profile', [ProfileController::class,'update'])->name('profile.update');

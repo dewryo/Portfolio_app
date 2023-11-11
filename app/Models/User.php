@@ -19,6 +19,7 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
+
     public function savedPosts()
     {
         return $this->belongsToMany(Post::class);

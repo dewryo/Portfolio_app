@@ -23,8 +23,14 @@ class PostController extends Controller
 
         // キーワード検索がある場合
         if (!empty($keyword)) {
-            $query->where('title', 'LIKE', "%{$keyword}%")
-                  ->orWhere('content', 'LIKE', "%{$keyword}%");
+            $query->where(function ($query) use ($keyword) {
+                $query->where('title', 'LIKE', "%{$keyword}%")
+                    ->orWhere('content', 'LIKE', "%{$keyword}%")
+                    // ユーザー名による検索を追加
+                    ->orWhereHas('user', function ($query) use ($keyword) {
+                        $query->where('name', 'LIKE', "%{$keyword}%");
+                    });
+            });
         }
 
         // タグによるフィルタリングがある場合

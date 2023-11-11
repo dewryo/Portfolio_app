@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Image;
 use App\Models\Like;
 use App\Models\Tag;
@@ -79,4 +80,11 @@ class PostController extends Controller
         return view('post.post_form');
     }
 
+    //自分の投稿一覧表示
+    public function my_post($id)
+    {
+        // ユーザー情報とそのユーザーの投稿情報、さらにそれに紐づく画像情報を取得
+        $user = User::with('posts.images')->findOrFail($id);
+        return view('post.my_post', compact('user'));
+    }
 }

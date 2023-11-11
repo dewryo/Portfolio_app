@@ -49,3 +49,7 @@ Route::get('/posts/{post}', [PostController::class, 'showPost'])->name('post.sho
 Route::get('/profile/edit', [ProfileController::class,'edit'])->name('profile.edit');
 // プロフィール更新
 Route::put('/profile', [ProfileController::class,'update'])->name('profile.update');
+
+
+// 自分の投稿一覧ページ表示
+Route::get('/my_post/{id}',[PostController::class, 'my_post'])->middleware('auth')->name('my_post');

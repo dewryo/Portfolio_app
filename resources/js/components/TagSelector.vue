@@ -24,11 +24,24 @@
 
 <script setup>
 import { ref } from 'vue';
+import { defineProps, defineEmits } from 'vue';
+
+const props = defineProps({
+ initialGrades: {
+    type: Array,
+    default: () => ([]), // 配列のデフォルト値は、関数で空配列を返すようにします。
+  },
+  initialSubjects: {
+    type: Array,
+    default: () => ([]), // 同様に空配列を返します。
+}});
+
 
 const grades = ['1年', '2年', '3年', '4年', '5年', '6年'];
 const subjects = ['国語', '算数', '理科', '社会', '音楽', '図工', '体育', '家庭科', '総合', '道徳', '学級活動'];
-const selectedGrades = ref([]);
-const selectedSubjects = ref([]);
+const selectedGrades = ref(props.initialGrades ||[]);
+const selectedSubjects = ref(props.initialSubjects || []);
+
 
 const toggleTag = (type, tag) => {
   if (type === 'grade') {

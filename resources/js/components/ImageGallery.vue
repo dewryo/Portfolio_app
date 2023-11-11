@@ -1,18 +1,13 @@
 <template>
   <div>
     <!-- 画像ギャラリー -->
-    <div class="row mt-4 mb-3">
-     
-      <div v-for="image in images" :key="image.id" class="col-6 col-md-4 col-lg-3 mb-3">
-        
-        <img
-          :src="image.file_path"
-          :alt="image.file_name || 'Post Image'"
-          class="img-fluid"
-          @click="openModal(image)"
-        />
+  <div class="row mt-4 mb-3">
+    <div v-for="image in images" :key="image.id" class="col-6 col-md-4 col-lg-3 mb-3">
+      <div class="image-container">
+        <img :src="image.url" :alt="image.name || 'Post Image'" class="img-fluid image-container" @click="openModal(image)" />
       </div>
     </div>
+  </div>
 
     <!-- 画像モーダルウィンドウ -->
     <image-modal

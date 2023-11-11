@@ -49,3 +49,17 @@ Route::get('/posts/{post}', [PostController::class, 'showPost'])->name('post.sho
 Route::get('/profile/edit', [ProfileController::class,'edit'])->name('profile.edit');
 // プロフィール更新
 Route::put('/profile', [ProfileController::class,'update'])->name('profile.update');
+
+
+// 自分の投稿一覧ページ表示
+Route::get('/my_post/{id}',[PostController::class, 'my_post'])->middleware('auth')->name('my_post');
+
+// 投稿編集ページへのルート
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+// 投稿更新のためのルート
+Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+// 投稿削除のためのルート
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+// 保存した投稿一覧ページ表示
+Route::get('/saved_post/{id}',[PostController::class, 'saved_post'])->middleware('auth')->name('saved_post');

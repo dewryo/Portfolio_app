@@ -1,7 +1,7 @@
 <template>
 <div class="mb-3">
   <label for="image" class="form-label">画像</label>
-  <input type="file" id="image" name="image[]" accept="image/*" required @change="previewImages" multiple class="form-control"/>
+  <input type="file" id="image" name="image[]" accept="image/*"  @change="previewImages" multiple class="form-control"/>
   <div class="mt-3 d-flex flex-wrap">
     <div v-for="(imageData, index) in imageDatas" :key="index" class="me-2 mb-2">
       <img :src="imageData" alt="Image Preview" class="image-preview rounded" />
@@ -12,8 +12,18 @@
 
 <script setup>
 import { ref } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
-const imageDatas = ref([]); // 複数の画像を格納するための配列
+const props = defineProps({
+ initialImage: {
+    type: Array,
+    default: () => ([]), // 配列のデフォルト値は、関数で空配列を返すようにします。
+  }
+  });
+
+// `url`プロパティだけを取り出して新しい配列を作成します。
+const imageDatas = ref(props.initialImage.map(image => image.url));
+
 
 const previewImages = (event) => {
   const input = event.target;

@@ -7,7 +7,7 @@
 
         </div>
         <div class="modal-body">
-          <img :src="image.file_path" :alt="image.alt_text || 'Post Image'" class="img-fluid">
+          <img :src="image.url" :alt="image.name || 'Post Image'" class="img-fluid">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">Close</button>

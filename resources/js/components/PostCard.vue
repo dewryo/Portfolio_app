@@ -2,7 +2,7 @@
   <div class="col-md-8">
     <div class="card-body">
       <div @click="navigateToPost(post.id)" class="post-item">
-        <h5 class="card-title">{{ post.title }}</h5>
+        <h5 class="card-title">{{ truncate(post.title, 30) }}</h5>
         <div v-if="post.tags.length">
           <span v-for="tag in post.tags" :key="tag.id" class="badge badge-primary" style="background-color: rgb(92, 122, 255); color: white; margin-right: 8px;">
             {{ tag.name }}
@@ -18,7 +18,7 @@
         <div v-else>
           <p>No image available</p>
         </div>
-        <p class="card-text">{{ post.content }}</p>
+        <p class="card-text">{{ truncate(post.content, 60) }}</p>
        </div>
       <div class="d-flex justify-content-between align-items-center">
         <div>
@@ -52,6 +52,9 @@ function navigateToPost(postId) {
   window.location.href = `/posts/${postId}`;
 }
 
+const truncate = (text, maxLength) => {
+  return text.length > maxLength ? text.substring(0, maxLength) + '…' : text;
+};
 
 </script>
 

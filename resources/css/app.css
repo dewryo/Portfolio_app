@@ -48,3 +48,18 @@ header {
     z-index: 1000; /* 必要に応じてz-indexを調整して、他の要素の上に表示されるようにする */
   }
   
+
+  .image-container {
+    max-height: 200px;
+    max-width: 300px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .image-container img {
+    height: 100%; 
+    /* コンテナの高さに合わせて調整 */
+    object-fit: cover; /* 画像がコンテナを満たすように調整しつつ、アスペクト比を維持 */
+  }

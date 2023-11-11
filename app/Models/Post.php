@@ -61,4 +61,14 @@ class Post extends Model
         'title',
         'content',
     ];
+
+        // アクセサを追加してフルURLを取得する
+        public function getImageUrlAttribute()
+        {
+            if ($this->image) {
+                return Storage::url($this->image);
+            }
+    
+            return null; // またはデフォルト画像のURL
+        }
 }

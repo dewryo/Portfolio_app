@@ -23,7 +23,9 @@
 
         <div class="mb-3">
             <image-preview
-            :initial-image="{{ json_encode($post->images->pluck('file_path')->all()) }}"></image-preview>
+            :initial-image="{{ json_encode($post->images->map(function ($image) {
+                return ['url' => asset($image->file_path), 'name' => $image->file_name];
+            })) }}"></image-preview>
         </div>
 
         <div class="mb-3">

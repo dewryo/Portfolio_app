@@ -74,6 +74,74 @@ class PostController extends Controller
         return view('post.show', compact('post'));
     }
 
+
+    //新規投稿保存
+    public function store(Request $request)
+    {
+
+        // バリデーション
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'image' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 各画像のバリデーション
+            'grades' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
+            'subjects' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
+        ]);
+        // postテーブルに格納
+        $post = new Post;
+        $post->user_id = Auth::id(); 
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+
+        // imageテーブルに格納
+        if($request->hasFile('image')){
+            foreach($request->file('image') as $uploadedFile){
+                  // 画像に命名
+                $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
+                  // 画像をストレージに保存
+                $uploadedFile->move(public_path('images'), $imageName);
+                // Imageモデルを作成し、Postとのリレーションを設定
+                $image = new Image;
+                $image->user_id = Auth::id();
+                $image->file_name = $imageName;
+                $image->file_path = 'images/' . $imageName;
+                $image->post()->associate($post);
+                $image->save();
+
+                
+            }
+        }
+        //post_tagテーブルにtype=gradeで格納
+        foreach($request->grades as $grade){
+            $tag = Tag::where('name', $grade)->first();
+            if($tag){
+                $tag_id = $tag->id;
+                $post_tag = new PostTag;
+                $post_tag->post_id = $post->id;
+                $post_tag->tag_id = $tag_id;
+                $post_tag->type = 'grade';
+                $post_tag->save();
+            }
+        }
+
+        //post_tagテーブルにtype=subjectで格納
+        foreach($request->subjects as $subject){
+            $tag = Tag::where('name', $subject)->first();
+            if($tag){
+                $tag_id = $tag->id;
+                $post_tag = new PostTag;
+                $post_tag->post_id = $post->id;
+                $post_tag->tag_id = $tag_id;
+                $post_tag->type = 'subject';
+                $post_tag->save();
+            }
+        }
+
+        return redirect()->route('home'); // 保存後に遷移するルート名を指定
+    }
+
     //投稿フォーム画面表示
     public function showPostForm()
     {
@@ -106,17 +174,30 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'tags' => 'array', // タグが配列であること
-            'image' => 'image', // 画像ファイルであること
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
         // 画像の処理
         if ($request->hasFile('image')) {
             // 既存の画像を削除
             if ($post->image) {
-                Storage::delete($post->image);
+                Storage::disk('images')->delete($post->image);
             }
-            // 新しい画像を保存
-            $data['image'] = $request->file('image')->store('images');
+            foreach($request->file('image') as $uploadedFile){
+                // 画像に命名
+              $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
+                // 画像をストレージに保存
+              $uploadedFile->move(public_path('images'), $imageName);
+              // Imageモデルを作成し、Postとのリレーションを設定
+              $image = new Image;
+              $image->user_id = Auth::id();
+              $image->file_name = $imageName;
+              $image->file_path = 'images/' . $imageName;
+              $image->post()->associate($post);
+              $image->save();
+
+              
+          }
         }
     
         // 投稿の更新

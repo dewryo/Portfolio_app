@@ -21,8 +21,8 @@ const props = defineProps({
   }
   });
 
-
-const imageDatas = ref(props.initialImage || []); // 複数の画像を格納するための配列
+// `url`プロパティだけを取り出して新しい配列を作成します。
+const imageDatas = ref(props.initialImage.map(image => image.url));
 
 
 const previewImages = (event) => {

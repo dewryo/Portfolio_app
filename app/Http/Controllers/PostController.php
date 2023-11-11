@@ -83,8 +83,13 @@ class PostController extends Controller
     //自分の投稿一覧表示
     public function my_post($id)
     {
-        // ユーザー情報とそのユーザーの投稿情報、さらにそれに紐づく画像情報を取得
-        $user = User::with('posts.images')->findOrFail($id);
-        return view('post.my_post', compact('user'));
+    // ユーザー情報を取得
+    $user = User::findOrFail($id);
+
+    // そのユーザーの投稿情報にページネーションを適用
+    // imagesリレーションシップをロード
+    $posts = $user->posts()->with('images')->paginate(10);
+
+    return view('post.my_post', compact('user', 'posts'));
     }
 }

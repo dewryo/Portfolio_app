@@ -11,6 +11,8 @@ use App\Models\Tag;
 use App\Models\PostTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 
 class PostController extends Controller
@@ -44,7 +46,7 @@ class PostController extends Controller
         }
         
         // ページネーションを適用する
-        $posts = $query->paginate(10)->appends(['tag' => $tags]);
+        $posts = $query->orderBy('created_at', 'desc')->paginate(10)->appends(['tag' => $tags]);
 
         // ログイン中のユーザーのIDを取得
         $userId = Auth::id();
@@ -156,7 +158,7 @@ class PostController extends Controller
 
     // そのユーザーの投稿情報にページネーションを適用
     // imagesとtagsを事前にイーガーロード
-    $posts = $user->posts()->with(['images', 'tags'])->paginate(10);
+    $posts = $user->posts()->orderBy('created_at', 'desc')->with(['images', 'tags'])->paginate(10);
 
     return view('post.my_post', compact('user', 'posts'));
     }
@@ -173,16 +175,24 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'tags' => 'array', // タグが配列であること
+            'subjects' => 'array', 
+            'grades' => 'array',// タグが配列であること
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
         // 画像の処理
         if ($request->hasFile('image')) {
-            // 既存の画像を削除
-            if ($post->image) {
-                Storage::disk('images')->delete($post->image);
+            // 既存のすべての画像を削除
+            foreach ($post->images as $image) {
+                $image->delete();
+
+                $imagePath = public_path($image->file_path); // public_pathヘルパーを使用して絶対パスを取得
+
+                if(File::exists($imagePath)) {
+                    File::delete($imagePath); // ファイルが存在する場合に削除
+                }
             }
+            //新規画像保存
             foreach($request->file('image') as $uploadedFile){
                 // 画像に命名
               $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
@@ -204,9 +214,39 @@ class PostController extends Controller
         $post->update($data);
     
         // タグの処理
-        if ($request->has('tags')) {
-            $post->tags()->sync($data['tags']);
+      
+            $post->post_tags()->where('type', 'grade')->delete();
+            if($request->grades){
+            foreach($request->grades as $grade){
+                $tag = Tag::where('name', $grade)->first();
+                if($tag){
+                    $tag_id = $tag->id;
+                    $post_tag = new PostTag;
+                    $post_tag->post_id = $post->id;
+                    $post_tag->tag_id = $tag_id;
+                    $post_tag->type = 'grade';
+                    $post_tag->save();
+                }
+            }
         }
+        
+
+       
+            $post->post_tags()->where('type', 'subject')->delete();
+            if($request->subjects){
+            foreach($request->subjects as $subject){
+                $tag = Tag::where('name', $subject)->first();
+                if($tag){
+                    $tag_id = $tag->id;
+                    $post_tag = new PostTag;
+                    $post_tag->post_id = $post->id;
+                    $post_tag->tag_id = $tag_id;
+                    $post_tag->type = 'subject';
+                    $post_tag->save();
+                }
+            }
+        }
+        
     
         return redirect()->route('my_post', ['id' =>  Auth::id()])->with('success', '投稿が更新されました。');
     }
@@ -218,4 +258,20 @@ class PostController extends Controller
 
         return redirect()->route('my_post', ['id' =>  Auth::id()])->with('success', '投稿が削除されました。');
     }
+
+
+
+    //保存した投稿一覧表示
+    public function saved_post($id)
+    {
+    // ユーザー情報を取得
+    $user = User::findOrFail($id);
+
+    // そのユーザーの保存した投稿情報にページネーションを適用
+    // imagesとtagsを事前にイーガーロード
+    $posts = $user->savedPosts()->orderBy('created_at', 'desc')->with(['images', 'tags'])->paginate(10);
+
+    return view('post.saved_post', compact('user', 'posts'));
+    }
+
 }

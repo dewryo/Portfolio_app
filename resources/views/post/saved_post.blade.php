@@ -31,16 +31,6 @@
 
                     </div>
                     </a>
-                    <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <form action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="POST" class="d-inline">
-                        @csrf {{-- CSRF トークンを含める --}}
-                        @method('DELETE') {{-- DELETE メソッドを指定する --}}
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </form>
                     
                 <hr>
             @endforeach

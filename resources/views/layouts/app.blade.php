@@ -30,7 +30,7 @@
                             <a class="dropdown-item" href="{{ route('profile.edit') }}">プロフィール編集</a>
                             <a class="dropdown-item" href="{{ route('post') }}">新規投稿</a>
                             <a class="dropdown-item" href="{{ route('my_post', ['id' =>  Auth::id()]) }}">投稿一覧</a>
-                            <a class="dropdown-item" href="#">保存した投稿</a>
+                            <a class="dropdown-item" href="{{ route('saved_post', ['id' =>  Auth::id()]) }}">保存した投稿</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">

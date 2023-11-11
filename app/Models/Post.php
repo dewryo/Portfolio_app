@@ -20,6 +20,16 @@ class Post extends Model
     return $this->hasMany(PostTag::class);
     }
 
+    public function post_tags()
+    {
+        return $this->hasMany(PostTag::class); 
+    }
+
+    public function savedPosts()
+    {
+        return $this->belongsToMany(User::class, 'post_user');
+    }
+
     public function tags()
     {
     return $this->belongsToMany(Tag::class, 'post_tags')->withPivot('type');
@@ -52,6 +62,7 @@ class Post extends Model
     {
         return $this->belongsToMany(User::class, 'post_user', 'post_id', 'user_id');
     }
+
     /**
      * The attributes that are mass assignable.
      *

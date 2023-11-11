@@ -28,6 +28,7 @@
                             @endif
                             <p class="card-text">{{ $post->content }}</p>
                         </div>
+                        <a href="{{ route('posts.edit', ['post' => $post->id]) }}">編集</a>
                     </div>
                     </a>
                 <hr>

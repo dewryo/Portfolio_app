@@ -87,9 +87,54 @@ class PostController extends Controller
     $user = User::findOrFail($id);
 
     // そのユーザーの投稿情報にページネーションを適用
-    // imagesリレーションシップをロード
-    $posts = $user->posts()->with('images')->paginate(10);
+    // imagesとtagsを事前にイーガーロード
+    $posts = $user->posts()->with(['images', 'tags'])->paginate(10);
 
     return view('post.my_post', compact('user', 'posts'));
+    }
+
+        // 編集ページ
+    public function edit(Post $post)
+    {
+        return view('post.edit', compact('post'));
+    }
+
+    // 更新処理
+    public function update(Request $request, Post $post)
+    {
+        $data = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'tags' => 'array', // タグが配列であること
+            'image' => 'image', // 画像ファイルであること
+        ]);
+    
+        // 画像の処理
+        if ($request->hasFile('image')) {
+            // 既存の画像を削除
+            if ($post->image) {
+                Storage::delete($post->image);
+            }
+            // 新しい画像を保存
+            $data['image'] = $request->file('image')->store('images');
+        }
+    
+        // 投稿の更新
+        $post->update($data);
+    
+        // タグの処理
+        if ($request->has('tags')) {
+            $post->tags()->sync($data['tags']);
+        }
+    
+        return redirect()->route('my_post', ['id' =>  Auth::id()])->with('success', '投稿が更新されました。');
+    }
+
+    // 削除処理
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return redirect()->route('my_post', ['id' =>  Auth::id()])->with('success', '投稿が削除されました。');
     }
 }

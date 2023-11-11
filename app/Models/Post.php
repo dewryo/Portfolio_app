@@ -22,7 +22,21 @@ class Post extends Model
 
     public function tags()
     {
-    return $this->belongsToMany(Tag::class, 'post_tags');
+    return $this->belongsToMany(Tag::class, 'post_tags')->withPivot('type');
+    }
+
+        // 学年のタグを取得するメソッド
+        public function gradeTags()
+        {
+            // 中間テーブルの 'type' カラムを使ってフィルタリング
+            return $this->tags()->wherePivot('type', 'grade');
+        }
+
+            // 教科のタグを取得するメソッド
+    public function subjectTags()
+    {
+        // 中間テーブルの 'type' カラムを使ってフィルタリング
+        return $this->tags()->wherePivot('type', 'subject');
     }
 
     public function likes()

@@ -6,6 +6,8 @@
     <div style="height: 20px;"></div>
     <div class="row justify-content-center">
         <div class="col-md-6">
+            <h2>保存した投稿</h2>
+            <hr>
             @foreach($posts as $post) <!-- ここでループを開始 -->
             <a href="{{ route('post.show',['post' => $post->id ]) }}" class="no-style-link">
                     <div class="card-body">

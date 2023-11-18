@@ -14,6 +14,7 @@
 
       <!-- Content Column -->
       <div class="col-9 col-md-9">
+        <SortButton  @update-posts="handleUpdatePosts"/>
         <PostCard v-for="post in posts" :key="post.id" :post="post" />
       </div>
     </div>
@@ -26,6 +27,7 @@ import axios from 'axios';
 import PostCard from './PostCard.vue';
 import PostTagSelector from './PostTagSelector.vue';
 import SearchForm from './SearchForm.vue';
+import SortButton from './SortButton.vue'
 import _ from 'lodash';
 
 const posts = ref([]);

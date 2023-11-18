@@ -44,10 +44,19 @@ class PostController extends Controller
                 });
             }
         }
+
+        // 並べ替えによるフィルタリングがある場合
+        if ($request->input('orderBy') === 'like') {
+            // いいね順に並べ替え
+            $query->withCount('likes')->orderBy('likes_count', 'desc');
+        } elseif ($request->input('orderBy') === 'new' || !$request->has('orderBy')) {
+            // 新着順に並べ替え、または並べ替えの指定がない場合
+            $query->orderBy('created_at', 'desc');
+        }
         
         // ページネーションを適用する
-        $posts = $query->orderBy('created_at', 'desc')->paginate(10)->appends(['tag' => $tags]);
-
+        $posts = $query->paginate(10)->appends(['tag' => $tags]);
+        
         // ログイン中のユーザーのIDを取得
         $userId = Auth::id();
 

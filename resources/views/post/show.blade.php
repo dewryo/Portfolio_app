@@ -5,6 +5,7 @@
     <div class="container">
         <div style="height: 20px;"></div>
         <h1>{{ $post->title }}</h1>
+        <p style="text-align: right;">投稿者 : {{ $post->user->name }}</p>
         <hr>
         <image-gallery :images="{{ json_encode($post->images->map(function ($image) {
             return ['url' => asset($image->file_path), 'name' => $image->file_name];

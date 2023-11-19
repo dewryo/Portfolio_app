@@ -1,20 +1,16 @@
 <template>
   <div class="modal fade" tabindex="-1" :class="{'show': isModalOpen}" style="display: var(--bs-display);" aria-hidden="!isModalOpen">
-    <div class="modal-dialog modal-dialog-centered">
+    
       <div class="modal-content">
-        <div class="modal-header">
-          
-
-        </div>
         <div class="modal-body">
+          <div class="modal-header" style="position: absolute; right: 0; top: 0; z-index: 10;">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">×</button>
+          </div>
           <img :src="image.url" :alt="image.name || 'Post Image'" class="img-fluid">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">Close</button>
         </div>
       </div>
     </div>
-  </div>
+  
 </template>
 
 <script setup>
@@ -65,10 +61,9 @@ const closeModal = () => {
 .modal-body img {
   display: block; /* ブロックレベル要素として表示 */
   margin: auto; /* 画像を中央に配置 */
-  width: auto; /* 元の画像の幅を維持 */
-  height: auto; /* 元の画像の高さを維持 */
-  max-width: 100%; /* コンテナが小さい場合は幅を調整 */
-  max-height: calc(100vh - 60px); /* 画面の高さに合わせて高さを調整 */
+  width: 95%; /* 画面の幅に合わせて拡大 */
+  height: 95vh; /* 画面の高さに合わせて拡大 */
+  object-fit: contain; /* 画像のアスペクト比を維持しつつ、コンテナに合わせて調整 */
 }
 
 /* モーダルコンテンツの背景とボーダーを透明に */
@@ -78,10 +73,11 @@ const closeModal = () => {
 }
 
 /* モーダルヘッダーとフッターの背景を透明に */
-.modal-header,
-.modal-footer {
-  background: transparent;
-  border: none;
+.modal-header {
+  position: absolute;
+  right: 15px; /* 右上に配置 */
+  top: 15px; /* 上の余白 */
+  z-index: 10; /* 他の要素より前面に */
 }
 
 /* クローズボタンとフッターのボタンの文字色を白色に */

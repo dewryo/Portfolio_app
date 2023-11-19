@@ -9,14 +9,15 @@
     </div>
   </div>
 
-    <!-- 画像モーダルウィンドウ -->
+
+  </div>
+      <!-- 画像モーダルウィンドウ -->
     <image-modal
       v-if="isModalOpen"
       :image="selectedImage"
       :isModalOpen="isModalOpen"
       @close-modal="isModalOpen = false"
     />
-  </div>
 </template>
 
 <script setup>

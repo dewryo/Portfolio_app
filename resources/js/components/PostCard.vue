@@ -13,7 +13,14 @@
         </div>
         <div style="height: 10px;"></div>
         <div v-if="post.images.length">
-          <img :src="post.images[0].file_path" :alt="post.images[0].file_name" class="img-fluid" style="max-height: 500px; width: auto;">
+          
+        <div style="width: 632px; height: 474px; overflow: hidden;">
+          <img :src="post.images[0].file_path" 
+              :alt="post.images[0].file_name" 
+              class="img-fluid"
+              style="min-width: 632px; min-height: 474px; object-fit: cover; object-position: center;">
+        </div>
+
         </div>
         <div v-else>
           <p>No image available</p>

@@ -7,12 +7,12 @@
             <a href="#" class="sort-link" @click.prevent="sort_like_Posts">いいね順</a>
         </form>
     </div>
-    <div class="col-md-8 ">
-        <hr>
-        </div>
-
 </div>
-    
+<div class="col-md-8">
+<div class="card-body">
+  <hr>
+</div>
+</div>
 </template>
 
 

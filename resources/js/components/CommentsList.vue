@@ -26,6 +26,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 
@@ -49,14 +50,17 @@ export default {
       replyFormVisible: null,
     });
 
+
     const fetchComments = async () => {
       try {
         const response = await axios.get(`/api/posts/${props.postId}/comments`);
         comments.value = response.data;
       } catch (error) {
-        console.error('Error fetching comments:', error);
+        console.error('操作に失敗しました。', error);
+
       }
     };
+
 
     onMounted(fetchComments);
 
@@ -65,7 +69,7 @@ export default {
     };
 
 
-    return { comments, state, showReplyForm, fetchComments,  };
+    return { comments, state, showReplyForm, fetchComments, };
   },
 };
 </script>

@@ -43,22 +43,35 @@ Route::middleware('web')->group(function () {
     Route::delete('/posts/{id}/save', [SavedPostsController::class, 'destroy']);
 });
 
+// コメントに関するルート
 Route::middleware('web')->group(function () {
-    // コメントに関するルート
-    Route::group(['prefix' => 'posts'], function () {
-        // 特定の投稿のコメントを取得
-        Route::get('/{post}/comments', [CommentController::class, 'index']);
-
-        // 新しいコメントを投稿
-        Route::post('/{post}/comments', [CommentController::class, 'store']);
-
-        // コメントを更新
-        Route::patch('/comments/{comment}', [CommentController::class, 'update']);
-
-        // コメントを削除
-        Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
-
-        // 返信コメントを投稿
-        Route::post('/comments/{comment}/replies', [CommentController::class, 'reply']);
-    });
+    Route::get('/posts/{post}/comments', [CommentController::class, 'index']);
 });
+
+
+
+// 新しいコメントを投稿
+Route::middleware('web')->group(function () {
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store']);
+});
+
+
+// コメントを更新
+Route::middleware('web')->group(function () {
+    Route::patch('/posts/comments/{comment}', [CommentController::class, 'update']);
+});
+
+
+
+// コメントを削除
+Route::middleware('web')->group(function () {
+    Route::delete('posts/comments/{comment}', [CommentController::class, 'destroy']);
+});
+
+
+
+// 返信コメントを投稿
+Route::middleware('web')->group(function () {
+    Route::post('/posts/comments/{parent}/replies', [CommentController::class, 'reply']);
+});
+

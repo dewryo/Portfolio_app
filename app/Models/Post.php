@@ -82,4 +82,9 @@ class Post extends Model
     
             return null; // またはデフォルト画像のURL
         }
+
+        public function comments()
+        {
+            return $this->hasMany(Comment::class);
+        }
 }

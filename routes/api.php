@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SavedPostsController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,36 @@ Route::middleware('web')->group(function () {
 Route::middleware('web')->group(function () {
     Route::delete('/posts/{id}/save', [SavedPostsController::class, 'destroy']);
 });
+
+// コメントに関するルート
+Route::middleware('web')->group(function () {
+    Route::get('/posts/{post}/comments', [CommentController::class, 'index']);
+});
+
+
+
+// 新しいコメントを投稿
+Route::middleware('web')->group(function () {
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store']);
+});
+
+
+// コメントを更新
+Route::middleware('web')->group(function () {
+    Route::patch('/posts/comments/{comment}', [CommentController::class, 'update']);
+});
+
+
+
+// コメントを削除
+Route::middleware('web')->group(function () {
+    Route::delete('posts/comments/{comment}', [CommentController::class, 'destroy']);
+});
+
+
+
+// 返信コメントを投稿
+Route::middleware('web')->group(function () {
+    Route::post('/posts/comments/{parent}/replies', [CommentController::class, 'reply']);
+});
+

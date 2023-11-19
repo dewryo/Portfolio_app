@@ -11,6 +11,8 @@
         })) }}"></image-gallery>
         <hr>
         <p class="lead">{{ $post->content }}</p>
+
+        <comments-list :post-id="{{ $post->id }}" ></comments-list>
     </div>
 </div>
 @endsection

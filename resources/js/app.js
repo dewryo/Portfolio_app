@@ -9,11 +9,16 @@ import PostList from './components/PostList.vue'
 import ImageGallery from './components/ImageGallery.vue'
 import '@fortawesome/fontawesome-free/css/all.css';
 
+import CommentsList from './components/CommentsList.vue';
+
+
 const app = createApp({});
 
 app.component('image-preview', ImagePreview);
 app.component('tag-selector', TagSelector);
 app.component('post-list', PostList);
 app.component('image-gallery', ImageGallery);
+
+app.component('comments-list', CommentsList);
 
 app.mount('#app');

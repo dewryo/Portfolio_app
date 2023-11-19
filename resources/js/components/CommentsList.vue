@@ -7,21 +7,20 @@
     <div v-for="comment in comments" :key="comment.id" class="comment mb-3" >
       <div class="card" v-if="comment.parent_id === null">
         <div class="card-body" @click="showReplyForm(comment.id)">
+          <h5 class="card-text">{{ comment.user.name }}</h5>
           <p class="card-text">{{ comment.body }}</p>
-          
-
-          <!-- 返信フォームの表示 -->
-          <div v-if="state.replyFormVisible === comment.id" class="mt-3">
-            <reply-form :comment-id="comment.id" @replyPosted="fetchComments"></reply-form>
-          </div>
-
           <!-- 返信コメントのネストされた表示 -->
           <div v-for="reply in comments" :key="reply.id"  class="reply mt-2">
             <div class="card" v-if="reply.parent_id === comment.id">
               <div class="card-body">
+                <h6 class="card-text">{{ reply.user.name }}</h6>
                 <p class="card-text">{{ reply.body }}</p>
               </div>
             </div>
+          </div>
+          <!-- 返信フォームの表示 -->
+          <div v-if="state.replyFormVisible === comment.id" class="mt-3">
+            <reply-form :comment-id="comment.id" @replyPosted="fetchComments"></reply-form>
           </div>
         </div>
       </div>

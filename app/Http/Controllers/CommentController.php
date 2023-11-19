@@ -23,6 +23,12 @@ class CommentController extends Controller
      */
     public function store(Request $request, Post $post)
     {
+        $user = Auth::user();
+        if (!$user) {
+            // ユーザーがログインしていない場合はエラーレスポンスを返す
+             return response()->json(['error' => 'Authentication required'], 401);
+        }
+
         $request->validate([
             'body' => 'required|string',
         ]);
@@ -68,6 +74,12 @@ class CommentController extends Controller
      */
     public function reply(Request $request, Comment $parent)
     {
+        $user = Auth::user();
+        if (!$user) {
+            // ユーザーがログインしていない場合はエラーレスポンスを返す
+             return response()->json(['error' => 'Authentication required'], 401);
+        }
+
         $request->validate([
             'body' => 'required|string',
         ]);

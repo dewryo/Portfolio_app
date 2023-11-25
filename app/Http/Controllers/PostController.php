@@ -172,6 +172,7 @@ class PostController extends Controller
     return view('post.my_post', compact('user', 'posts'));
     }
 
+
         // 編集ページ
     public function edit(Post $post)
     {
@@ -283,4 +284,19 @@ class PostController extends Controller
     return view('post.saved_post', compact('user', 'posts'));
     }
 
+
+    //他人の投稿一覧表示
+    public function user_post($id)
+    {
+    // ユーザー情報を取得
+    $user = User::findOrFail($id);
+
+    // そのユーザーの投稿情報にページネーションを適用
+    // imagesとtagsを事前にイーガーロード
+    $posts = $user->posts()->orderBy('created_at', 'desc')->with(['images', 'tags'])->paginate(10);
+
+    return view('post.user_post', compact('user', 'posts'));
+    }
+
 }
+

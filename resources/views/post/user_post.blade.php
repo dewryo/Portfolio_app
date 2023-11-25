@@ -7,9 +7,9 @@
     <div class="row justify-content-center">
         
         <div class="col-md-6">
-            <h2>自分の投稿</h2>
+            <h2>{{  $user->name }}</h2>
             <div class="bg-light">
-                <p>{{ Auth::user()->bio }}</p>
+                <p>{{ $user->bio }}</p>
             </div>
             <hr>
             @foreach($posts as $post) <!-- ここでループを開始 -->
@@ -37,16 +37,7 @@
 
                     </div>
                     </a>
-                    <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <form action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="POST" class="d-inline">
-                        @csrf {{-- CSRF トークンを含める --}}
-                        @method('DELETE') {{-- DELETE メソッドを指定する --}}
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </form>
+
                     
                 <hr>
             @endforeach

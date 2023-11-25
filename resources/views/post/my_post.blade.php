@@ -8,6 +8,9 @@
         
         <div class="col-md-6">
             <h2>自分の投稿</h2>
+            <div class="bg-light">
+                <p>{{ Auth::user()->bio }}</p>
+            </div>
             <hr>
             @foreach($posts as $post) <!-- ここでループを開始 -->
             <a href="{{ route('post.show',['post' => $post->id ]) }}" class="no-style-link">

@@ -28,10 +28,12 @@
                             @endif
                             <div style="height: 10px;"></div>
                             @if($post->images->isNotEmpty())
-                                <img src="{{ asset($post->images->first()->file_path) }}" alt="{{ $post->images->first()->file_name }}" class="img-fluid" style="max-height: 500px; width: auto;">
-                            @else
-                                <p>No image available</p>
-                            @endif
+                            <div style="display: flex; justify-content: center; align-items: center; height: 500px;">
+                                <img src="{{ asset($post->images->first()->file_path) }}" alt="{{ $post->images->first()->file_name }}" class="img-fluid" style="max-height: 100%; max-width: 100%;">
+                            </div>
+                        @else
+                            <p>No image available</p>
+                        @endif
                             <p class="card-text">{{ Str::limit($post->content, 100, '...') }}</p>
                         </div>
 

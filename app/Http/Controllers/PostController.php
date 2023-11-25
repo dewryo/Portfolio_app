@@ -167,7 +167,7 @@ class PostController extends Controller
 
     // そのユーザーの投稿情報にページネーションを適用
     // imagesとtagsを事前にイーガーロード
-    $posts = $user->posts()->orderBy('created_at', 'desc')->with(['images', 'tags'])->paginate(10);
+    $posts = $user->posts()->orderBy('created_at', 'desc')->with(['images', 'tags'])->paginate(12);
 
     return view('post.my_post', compact('user', 'posts'));
     }

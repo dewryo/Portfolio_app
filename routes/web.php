@@ -6,7 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Controller;
-
+use App\Http\Controllers\LoginController;
 
 
 /*
@@ -63,3 +63,6 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.
 
 // 保存した投稿一覧ページ表示
 Route::get('/saved_post/{id}',[PostController::class, 'saved_post'])->middleware('auth')->name('saved_post');
+
+// ゲストログイン用のルート
+Route::get('/guest-login', [LoginController::class, 'guestLogin'])->name('guest_login');

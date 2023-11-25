@@ -40,10 +40,7 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 # Node.jsとnpmのバージョンを確認
 RUN node --version
 RUN npm --version
-# Composer依存関係をインストール
-RUN composer update
-# NPMパッケージをインストールし、viteを更新
-RUN npm install && npm update vite
+
 # 作業ディレクトリを設定
 WORKDIR /src
 

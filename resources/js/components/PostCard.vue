@@ -34,7 +34,16 @@
         </div>
         <div @click="navigateToUser(post.user.id)" class="post-item">
         <div class="d-flex align-items-center">
-          <img :src="`/storage/profile_images/${post.user.profile_image || 'default.png'}`" alt="プロフィール画像" class="profile-image mx-3">
+        
+        <div>
+          <img v-if="post.user.profile_image" 
+              :src="`/storage/profile_images/${post.user.profile_image}`" 
+              alt="プロフィール画像" 
+              class="profile-image mx-3">
+
+            <i v-else 
+              class="fas fa-user-circle fa-2x mx-3"></i> <!-- ここでFontAwesomeアイコンを使用 -->
+        </div>
           <span>{{ post.user.name}}</span>
         </div>
         </div>

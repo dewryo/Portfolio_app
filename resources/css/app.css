@@ -1,9 +1,19 @@
 
 
+
 html {
   overflow-y: scroll;
 }
 
+.navbar-brand {
+  margin-left: 0.5em;
+  font-family: 'Roboto', sans-serif; /* フォントファミリー */
+  font-size: 1.5rem; /* フォントサイズ */
+  font-weight: 700; /* フォントの太さ */
+  color: #000000; /* フォントカラー */
+  text-transform: uppercase; /* 大文字にする */
+  letter-spacing: 0.05rem; /* 文字の間隔 */
+}
 
 .profile-image {
   /* 画像を円形にする */
@@ -39,6 +49,7 @@ header {
   main {
     margin-top: 60px;  /* ヘッダーの高さに合わせる */
     margin-bottom: 60px; /* フッターの高さに合わせる */
+    
   }
   
   .sticky {
@@ -68,3 +79,11 @@ header {
     border-radius: 10px; /* 角の丸みの大きさを設定 */
     padding: 20px;      /* 内側の余白を設定 */
   }
+
+  .btn-secondary {
+    background-color: white; /* ボタンの背景色を白に設定 */
+    color: black; /* ボタンの文字色を黒に設定 */
+    border: 1px solid #ddd; /* 枠線を薄い灰色に設定（必要に応じて） */
+    margin-top:5px;
+  }
+  

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <div style="height: 20px;"></div>
     <h2>プロフィール編集</h2>
     @if ($errors->any())
     <div class="alert alert-danger">

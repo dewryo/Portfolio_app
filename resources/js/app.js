@@ -12,6 +12,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import CommentsList from './components/CommentsList.vue';
 import SavePostButton from './components/SavePostButton.vue';
 
+
 const app = createApp({});
 
 app.component('image-preview', ImagePreview);

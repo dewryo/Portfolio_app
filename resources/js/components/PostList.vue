@@ -58,7 +58,7 @@ const fetchPosts = async () => {
   }
 };
 
-const fetchPostsDebounced = _.debounce(fetchPosts, 300);
+const fetchPostsDebounced = _.debounce(fetchPosts, 100);
 
 const handleScroll = () => {
   if (!nextPageUrl.value) return;
@@ -82,7 +82,7 @@ const addTag = (tag) => {
     posts.value = [];
     nextPageUrl.value = null;
     selectedTags.value.push(tag);
-    fetchPostsDebounced();
+    fetchPosts();
   }
 };
 
@@ -92,7 +92,7 @@ const removeTag = (tag) => {
     posts.value = [];
     nextPageUrl.value = null;
     selectedTags.value.splice(index, 1);
-    fetchPostsDebounced();
+    fetchPosts();
   }
 };
 

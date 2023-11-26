@@ -19,6 +19,7 @@
         <div v-else>
             <p>No image available</p>
         </div>
+            
         <p class="card-text">{{ truncate(post.content, 60) }}</p>
        </div>
       <div class="d-flex justify-content-between align-items-center">

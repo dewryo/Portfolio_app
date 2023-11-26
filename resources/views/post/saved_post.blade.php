@@ -5,7 +5,7 @@
 <div id="app" class="container">
     <div style="height: 20px;"></div>
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <h2>保存した投稿</h2>
             <hr>
             @foreach($posts as $post) <!-- ここでループを開始 -->
@@ -24,7 +24,7 @@
                             @endif
                             <div style="height: 10px;"></div>
                             @if($post->images->isNotEmpty())
-                            <div style="display: flex; justify-content: center; align-items: center; height: 500px;">
+                            <div style="display: flex; justify-content: center; align-items: center; height: 200px;">
                                 <img src="{{ asset($post->images->first()->file_path) }}" alt="{{ $post->images->first()->file_name }}" class="img-fluid" style="max-height: 100%; max-width: 100%;">
                             </div>
                             @else

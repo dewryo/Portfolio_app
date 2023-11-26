@@ -1,7 +1,7 @@
 <template>
     
         <div class="row justify-content-end">
-            <div class="col-md-9">
+            <div class="col-md-6">
                 <form @submit.prevent="searchPosts">
                     <input type="search" v-model="keyword" class="form-control" placeholder="検索...">
                 </form>

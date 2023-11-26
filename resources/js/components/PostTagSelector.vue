@@ -2,7 +2,7 @@
   
     <div class="row justify-content-end">
 
-      <div class="col-md-9">
+      <div class="col-md-6">
         <div>
           <h5 class="mb-3">学年</h5>
           <div class="d-flex flex-column mb-4">

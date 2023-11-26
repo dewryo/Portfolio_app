@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-8">
+  <div class="col-md-7">
     <div class="card-body">
       <div @click="navigateToPost(post.id)" class="post-item">
         <h5 class="card-title">{{ truncate(post.title, 30) }}</h5>
@@ -13,7 +13,7 @@
         </div>
         <div style="height: 10px;"></div>
         
-        <div v-if="post.images.length" style="display: flex; justify-content: center; align-items: center; height: 500px;">
+        <div v-if="post.images.length" style="display: flex; justify-content: center; align-items: center; height: 200px;">
             <img :src="post.images[0].file_path" :alt="post.images[0].file_name" class="img-fluid" style="max-height: 100%; max-width: 100%;">
         </div>
         <div v-else>

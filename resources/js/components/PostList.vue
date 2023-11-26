@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-3 col-md-3">
+      <div class="col-4 col-md-4">
         <div class="container  sticky ">
         <!-- Search Form Column -->
         <SearchForm @update-posts="handleUpdatePosts"/>
@@ -13,7 +13,7 @@
       </div>
 
       <!-- Content Column -->
-      <div class="col-9 col-md-9">
+      <div class="col-8 col-md-8">
         <SortButton  @update-posts="handleUpdatePosts"/>
         <PostCard v-for="post in posts" :key="post.id" :post="post" />
       </div>

@@ -63,3 +63,8 @@ header {
     /* コンテナの高さに合わせて調整 */
     object-fit: cover; /* 画像がコンテナを満たすように調整しつつ、アスペクト比を維持 */
   }
+
+  .rounded {
+    border-radius: 10px; /* 角の丸みの大きさを設定 */
+    padding: 20px;      /* 内側の余白を設定 */
+  }

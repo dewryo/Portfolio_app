@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div id="app" class="container">
     <div style="height: 20px;"></div>
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -24,15 +24,19 @@
                             @endif
                             <div style="height: 10px;"></div>
                             @if($post->images->isNotEmpty())
-                                <img src="{{ asset($post->images->first()->file_path) }}" alt="{{ $post->images->first()->file_name }}" class="img-fluid" style="max-height: 500px; width: auto;">
+                            <div style="display: flex; justify-content: center; align-items: center; height: 500px;">
+                                <img src="{{ asset($post->images->first()->file_path) }}" alt="{{ $post->images->first()->file_name }}" class="img-fluid" style="max-height: 100%; max-width: 100%;">
+                            </div>
                             @else
-                                <p>No image available</p>
+                            <p>No image available</p>
                             @endif
                             <p class="card-text">{{ Str::limit($post->content, 100, '...') }}</p>
                         </div>
-
                     </div>
                     </a>
+                    <div>
+                    <save-postbutton :post-id="{{ $post->id }}" :is-saved="{{ json_encode($post->savedByUsers->isNotEmpty()) }}" ></save-postbutton>
+                    </div>
                     
                 <hr>
             @endforeach

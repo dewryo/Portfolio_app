@@ -8,9 +8,9 @@
         
         <div class="col-md-6">
             <h2>{{  $user->name }}</h2>
-            <div class="bg-light">
+            <div class="bg-light rounded">
                 <p>{{ $user->bio }}</p>
-            </div>
+              </div>
             <hr>
             @foreach($posts as $post) <!-- ここでループを開始 -->
             <a href="{{ route('post.show',['post' => $post->id ]) }}" class="no-style-link">

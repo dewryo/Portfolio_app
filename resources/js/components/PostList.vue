@@ -4,7 +4,7 @@
       <div class="col-4 col-md-4">
         <div class="container  sticky ">
         <!-- Search Form Column -->
-        <SearchForm @update-posts="handleUpdatePosts"/>
+         <SearchForm @update-keyword="searchKeyword = $event" @update-posts="handleUpdatePosts"/>
         
         <div style="height: 10px;"></div>
         <!-- Tag Selector Column -->
@@ -14,7 +14,7 @@
 
       <!-- Content Column -->
       <div class="col-8 col-md-8">
-        <SortButton  @update-posts="handleUpdatePosts"/>
+        <SortButton :selectedTags="selectedTags" :searchKeyword="searchKeyword" @update-posts="handleUpdatePosts"/>
         <PostCard v-for="post in posts" :key="post.id" :post="post" />
       </div>
     </div>
@@ -33,6 +33,7 @@ import _ from 'lodash';
 const posts = ref([]);
 const nextPageUrl = ref(null);
 const selectedTags = ref([]);
+const searchKeyword = ref('');
 const isLoading = ref(false);
 
 const fetchPosts = async () => {
@@ -73,6 +74,7 @@ const handleScroll = () => {
 };
 
 const handleUpdatePosts = (newData) => {
+  
   posts.value = newData.posts;
   nextPageUrl.value = newData.next_page_url;
 };

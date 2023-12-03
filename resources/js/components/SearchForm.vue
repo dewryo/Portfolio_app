@@ -25,6 +25,8 @@ const searchPosts = async () => {
     
   });
   //親コンポーネントへデータを送る
+  emit('update-keyword', keyword.value);
   emit('update-posts',response.data);
+  
 };
 </script>

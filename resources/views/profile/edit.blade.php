@@ -31,7 +31,14 @@
 
         <div class="form-group">
             <label for="email">Eメール</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+            @if($user->email == 'guest@example.com')
+                {{-- ゲストユーザーの場合は隠しフィールドを使用 --}}
+                <input type="hidden" name="email" value="{{ $user->email }}">
+                <input type="email" class="form-control" id="email" value="{{ $user->email }}" disabled>
+            @else
+                {{-- 通常のユーザーの場合は通常の入力フォーム --}}
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+            @endif
         </div>
 
         {{-- プロフィール画像アップロード用のフィールド --}}

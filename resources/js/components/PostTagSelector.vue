@@ -4,7 +4,7 @@
 
       <div class="col-md-6">
         <div>
-          <h5 class="mb-3">タグ検索</h5>
+          <h6 class="mb-3">タグ検索</h6>
           <div class="d-flex flex-column mb-4">
           <!-- 年度のプルダウンメニュー -->
           <div class="dropdown flex-grow-1">

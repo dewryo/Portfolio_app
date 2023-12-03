@@ -10,6 +10,7 @@ import ImageGallery from './components/ImageGallery.vue'
 import '@fortawesome/fontawesome-free/css/all.css';
 
 import CommentsList from './components/CommentsList.vue';
+import SavePostButton from './components/SavePostButton.vue';
 
 
 const app = createApp({});
@@ -20,5 +21,6 @@ app.component('post-list', PostList);
 app.component('image-gallery', ImageGallery);
 
 app.component('comments-list', CommentsList);
+app.component('save-postbutton', SavePostButton);
 
 app.mount('#app');

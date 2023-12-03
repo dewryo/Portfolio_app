@@ -12,6 +12,7 @@
 @endif
 
 <div id="app" class="container mt-5">
+    <div style="height: 20px;"></div>
     <h2>新規投稿</h2>
     <form action="/posts" method="POST" enctype="multipart/form-data">
         @csrf

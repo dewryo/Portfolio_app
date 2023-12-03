@@ -8,7 +8,7 @@
         
         <div class="col-md-12">
             <h2>自分の投稿</h2>
-            <div class="bg-light">
+            <div class="bg-light rounded">
                 <p>{{ Auth::user()->bio }}</p>
             </div>
             <hr>

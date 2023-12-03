@@ -11,13 +11,13 @@
     </div>
 
     <div class="mb-3">
-      <p class="mb-2">教科</p>
-      <div class="btn-group" role="group">
+     <p class="mb-2">教科</p>
+      <div class="btn-group flex-wrap" role="group">
         <button type="button" v-for="subject in subjects" :key="subject" @click="toggleTag('subject', subject)" :class="['btn', selectedSubjects.includes(subject) ? 'btn-primary' : 'btn-outline-primary']">
-          {{ subject }}
-        </button>
+         {{ subject }}
+       </button>
       </div>
-      <input type="hidden" name="subjects[]" v-for="subject in selectedSubjects" :key="'subject-' + subject" :value="subject">
+     <input type="hidden" name="subjects[]" v-for="subject in selectedSubjects" :key="'subject-' + subject" :value="subject">
     </div>
   </div>
 </template>

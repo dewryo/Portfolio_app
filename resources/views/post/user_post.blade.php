@@ -6,11 +6,11 @@
     <div style="height: 20px;"></div>
     <div class="row justify-content-center">
         
-        <div class="col-md-6">
+        <div class="col-md-5">
             <h2>{{  $user->name }}</h2>
-            <div class="bg-light">
+            <div class="bg-light rounded">
                 <p>{{ $user->bio }}</p>
-            </div>
+              </div>
             <hr>
             @foreach($posts as $post) <!-- ここでループを開始 -->
             <a href="{{ route('post.show',['post' => $post->id ]) }}" class="no-style-link">
@@ -28,7 +28,7 @@
                             @endif
                             <div style="height: 10px;"></div>
                             @if($post->images->isNotEmpty())
-                            <div style="display: flex; justify-content: center; align-items: center; height: 500px;">
+                            <div style="display: flex; justify-content: center; align-items: center; height: 200px;">
                                 <img src="{{ asset($post->images->first()->file_path) }}" alt="{{ $post->images->first()->file_name }}" class="img-fluid" style="max-height: 100%; max-width: 100%;">
                             </div>
                         @else

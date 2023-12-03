@@ -1,6 +1,6 @@
 <template>
 <div class="row">
-    <div class="col-md-8 offset-md-5">
+    <div class="col-md-7 offset-md-4">
         <form @submit.prevent="sortPosts" class="text-right">
             <span class="sort-label">並べ替え：</span>
             <a href="#" class="sort-link" @click.prevent="sort_new_Posts">新着順</a>
@@ -8,7 +8,7 @@
         </form>
     </div>
 </div>
-<div class="col-md-8">
+<div class="col-md-7">
 <div class="card-body">
   <hr>
 </div>
@@ -21,7 +21,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 const keyword = ref('');
-const emit = defineEmits(); 
+const emit = defineEmits(['update-posts']);
 
 
 

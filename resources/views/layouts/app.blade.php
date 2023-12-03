@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>loilotalk</title>
+    <title>EduForum</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg justify-content-between">
-            <a class="navbar-brand" href="{{ route('home') }}">loilotalk</a>
+            
+            <a class="navbar-brand" href="{{ route('home') }}">
+                <i class="fa-solid fa-chalkboard"></i>
+                <span>EduForum</span>
+            </a>
             <div class="d-flex">
                 <!-- Authentication Links -->
                 @guest
@@ -60,7 +65,7 @@
     </main>
 
     <footer class="text-center py-2">
-        <p class="mb-0">&copy; 2023 loilotalk</p>
+        <p class="mb-0">&copy; 2023 EduForum</p>
     </footer>
 
     

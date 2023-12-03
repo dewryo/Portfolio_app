@@ -25,10 +25,7 @@ class Post extends Model
         return $this->hasMany(PostTag::class); 
     }
 
-    public function savedPosts()
-    {
-        return $this->belongsToMany(User::class, 'post_user');
-    }
+
 
     public function tags()
     {

@@ -1,7 +1,7 @@
 <template>
 <div class="row">
     <div class="col-md-7 offset-md-4">
-        <form @submit.prevent="sortPosts" class="text-right">
+        <form  class="text-right">
             <span class="sort-label">並べ替え：</span>
             <a href="#" class="sort-link" @click.prevent="sort_new_Posts">新着順</a>
             <a href="#" class="sort-link" @click.prevent="sort_like_Posts">いいね順</a>
@@ -20,7 +20,11 @@
 import { ref } from 'vue';
 import axios from 'axios';
 
-const keyword = ref('');
+const props = defineProps({
+  selectedTags: Array,
+  searchKeyword: String
+});
+
 const emit = defineEmits(['update-posts']);
 
 
@@ -28,7 +32,10 @@ const emit = defineEmits(['update-posts']);
 
 const sort_new_Posts = async () => {
   const response = await axios.get('/api/posts', {
-    params: { orderBy: 'new' }
+    params: { orderBy: 'new' ,
+              tag: props.selectedTags,
+              keyword: props.searchKeyword
+              }
     
   });
   //親コンポーネントへデータを送る
@@ -38,7 +45,10 @@ const sort_new_Posts = async () => {
 
 const sort_like_Posts = async () => {
   const response = await axios.get('/api/posts', {
-    params: { orderBy: 'like' }
+    params: { orderBy: 'like',
+              tag: props.selectedTags,
+              keyword: props.searchKeyword
+              }
     
   });
   //親コンポーネントへデータを送る

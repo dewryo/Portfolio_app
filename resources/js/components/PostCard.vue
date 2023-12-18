@@ -77,8 +77,8 @@ const truncate = (text, maxLength) => {
 
 // S3の画像URLを生成する関数を追加
 function getS3ImageUrl(filePath) {
-    const baseUrl = 'https://eduforum-bucket.s3.ap-northeast-1.amazonaws.com/images/';
-    return baseUrl + encodeURIComponent(filePath);
+    const baseUrl = 'https://eduforum-bucket.s3.ap-northeast-1.amazonaws.com/';
+    return baseUrl + filePath.split(' ').map(encodeURIComponent).join(' ');
 }
 
 </script>

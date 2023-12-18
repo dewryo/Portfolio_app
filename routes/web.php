@@ -20,7 +20,7 @@ use App\Http\Controllers\LoginController;
 |
 */
 //トップ画面表示
-
+Route::redirect('/', '/posts');
 Route::get('/posts',[PostController::class, 'showhome'])->name('home');
 
 // ログインページ

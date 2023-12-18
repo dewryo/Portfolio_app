@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('post_tags', function (Blueprint $table) {
+        Schema::table('post_tag', function (Blueprint $table) {
             $table->timestamps();
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('post_tags', function (Blueprint $table) {
+        Schema::table('post_tag', function (Blueprint $table) {
             $table->dropTimestamps();
         });
     }

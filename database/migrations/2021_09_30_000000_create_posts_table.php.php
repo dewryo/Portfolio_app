@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->text('title');  // タイトル
             $table->text('content');  // コンテンツ
             $table->timestamp('created_at')->useCurrent();  // 作成日時
-            $table->timestamp('update_at')->useCurrent()->useCurrentOnUpdate();  // 更新日時
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();  // 更新日時
 
             // 外部キー制約（オプション）
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

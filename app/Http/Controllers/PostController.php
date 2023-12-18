@@ -106,6 +106,7 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->save();
 
+
         // imageテーブルに格納
         if ($request->hasFile('image')) {
         foreach ($request->file('image') as $uploadedFile) {
@@ -122,6 +123,7 @@ class PostController extends Controller
         $image->save();
     }
 }
+
         //post_tagテーブルにtype=gradeで格納
         foreach($request->grades as $grade){
             $tag = Tag::where('name', $grade)->first();

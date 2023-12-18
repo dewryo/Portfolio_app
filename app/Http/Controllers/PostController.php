@@ -106,20 +106,22 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->save();
 
+
         // imageテーブルに格納
-        if($request->hasFile('image')){
-            foreach($request->file('image') as $uploadedFile){
-                  // 画像に命名
-                $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
-                  // 画像をストレージに保存
-                $uploadedFile->move(public_path('images'), $imageName);
-                // Imageモデルを作成し、Postとのリレーションを設定
-                $image = new Image;
-                $image->user_id = Auth::id();
-                $image->file_name = $imageName;
-                $image->file_path = 'images/' . $imageName;
-                $image->post()->associate($post);
-                $image->save();
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $uploadedFile) {
+            // 画像に命名
+            $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
+            // 画像をS3バケットにアップロード
+            $imagePath = $uploadedFile->storeAs('images', $imageName, 's3');
+            // Imageモデルを作成し、Postとのリレーションを設定
+            $image = new Image;
+            $image->user_id = Auth::id();
+            $image->file_name = $imageName;
+            $image->file_path = $imagePath;
+            $image->post()->associate($post);
+            $image->save();
+    
 
                 
             }

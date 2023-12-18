@@ -19,7 +19,7 @@ class CreateImagesTable extends Migration
             $table->string('file_name');  // ファイル名
             $table->string('file_path');  // ファイルパス
             $table->timestamp('created_at')->useCurrent();  // 作成日時
-            $table->timestamp('update_at')->useCurrent()->useCurrentOnUpdate();  // 更新日時
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();  // 更新日時
 
             // 外部キー制約（オプション）
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

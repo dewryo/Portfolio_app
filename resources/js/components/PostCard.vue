@@ -16,7 +16,7 @@
 
         <!-- 画像表示部分をS3のバケット名に合わせて更新 -->
         <div v-if="post.images.length" style="display: flex; justify-content: center; align-items: center; height: 200px;">
-          <img :src="post.images[0].file_path" :alt="post.images[0].file_name" class="img-fluid" style="max-height: 100%; max-width: 100%;">
+          <img :src="https://eduforum-bucket.s3.ap-northeast-1.amazonaws.com/images/1702897941_%E5%90%8D%E7%A7%B0%E6%9C%AA%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3+(5).png" :alt="post.images[0].file_name" class="img-fluid" style="max-height: 100%; max-width: 100%;">
           
         </div>
         <div v-else>

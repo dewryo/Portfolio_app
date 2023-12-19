@@ -88,10 +88,12 @@ function getS3ImageUrl(filePath) {
 }
 
 // デバッグ用の出力
-if (props.post.images.length) {
-  const imageUrl = getS3ImageUrl(props.post.images[0].file_path);
-  console.log(imageUrl); // このURLをコンソールで確認
-}
+onMounted(() => {
+  if (props.post.images.length > 0) {
+    const imageUrl = getS3ImageUrl(props.post.images[0].file_path);
+    console.log('Image URL:', imageUrl); // コンソールにURLを出力
+  }
+});
 </script>
 
 <style scoped>

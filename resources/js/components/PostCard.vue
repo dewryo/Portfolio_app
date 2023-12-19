@@ -14,7 +14,10 @@
           <p>No tag available</p>
         </div>
 
-  
+        <!-- 画像表示部分をS3のバケット名に合わせて更新 -->
+        <div v-if="post.images.length" style="display: flex; justify-content: center; align-items: center; height: 200px;">
+          <img :src="getS3ImageUrl(post.images[0].file_path)" :alt="post.images[0].file_name" class="img-fluid" style="max-height: 100%; max-width: 100%;">
+          
         </div>
         <div v-else>
           <p>No image available</p>

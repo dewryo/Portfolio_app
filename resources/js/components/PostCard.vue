@@ -17,6 +17,7 @@
         <!-- 画像表示部分をS3のバケット名に合わせて更新 -->
         <div v-if="post.images.length" style="display: flex; justify-content: center; align-items: center; height: 200px;">
           <img :src="getS3ImageUrl(post.images[0].file_path)" :alt="post.images[0].file_name" class="img-fluid" style="max-height: 100%; max-width: 100%;">
+          
         </div>
         <div v-else>
           <p>No image available</p>
@@ -59,7 +60,7 @@ import SavePostButton from './SavePostButton.vue';
 const props = defineProps({
   post: {
     type: Object,
-    default: () => ({ tags: [], images: [], likes: [], is_liked_by_user: false, user:Object})
+    default: () => ({ tags: [], images: [], likes: [], is_liked_by_user: false, user: {} })
   }
 });
 
@@ -68,7 +69,7 @@ function navigateToPost(postId) {
 }
 
 function navigateToUser(userId) {
-  window.location.href = `/posts/user/${userId}`;
+  window.location.href = `posts/users/${userId}`;
 }
 
 const truncate = (text, maxLength) => {
@@ -77,13 +78,20 @@ const truncate = (text, maxLength) => {
 
 // S3の画像URLを生成する関数を追加
 function getS3ImageUrl(filePath) {
-    const baseUrl = 'https://eduforum-bucket.s3.ap-northeast-1.amazonaws.com/';
-    return S3imageUrl = baseUrl + filePath.split(' ').map(encodeURIComponent).join(' ');
-
+  const baseUrl = 'https://eduforum-bucket.s3.ap-northeast-1.amazonaws.com/';
+  // ファイルパスからファイル名のみを抽出し、エンコードする
+  const parts = filePath.split('/');
+  const fileName = parts.pop();
+  const encodedFileName = encodeURIComponent(fileName);
+  const fullPath = parts.join('/') + '/' + encodedFileName;
+  return baseUrl + fullPath;
 }
 
-console.log(S3imageUrl);
-
+// デバッグ用の出力
+if (props.post.images.length) {
+  const imageUrl = getS3ImageUrl(props.post.images[0].file_path);
+  console.log(imageUrl); // このURLをコンソールで確認
+}
 </script>
 
 <style scoped>

@@ -16,7 +16,7 @@
 
         <!-- 画像表示部分をS3のバケット名に合わせて更新 -->
         <div v-if="post.images.length" style="display: flex; justify-content: center; align-items: center; height: 200px;">
-          <img :src="getS3ImageUrl(post.images[0].file_path)" :alt="post.images[0].file_name" class="img-fluid" style="max-height: 100%; max-width: 100%;">
+          <img :src="post.images[0].file_path" :alt="post.images[0].file_name" class="img-fluid" style="max-height: 100%; max-width: 100%;">
           
         </div>
         <div v-else>
@@ -87,13 +87,7 @@ function getS3ImageUrl(filePath) {
   return baseUrl + fullPath;
 }
 
-// デバッグ用の出力
-onMounted(() => {
-  if (props.post.images.length > 0) {
-    const imageUrl = getS3ImageUrl(props.post.images[0].file_path);
-    console.log('Image URL:', imageUrl); // コンソールにURLを出力
-  }
-});
+
 </script>
 
 <style scoped>

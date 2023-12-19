@@ -79,8 +79,10 @@ const truncate = (text, maxLength) => {
 function getS3ImageUrl(filePath) {
     const baseUrl = 'https://eduforum-bucket.s3.ap-northeast-1.amazonaws.com/';
     return S3imageUrl = baseUrl + filePath.split(' ').map(encodeURIComponent).join(' ');
-    console.log(S3imageUrl);
+
 }
+
+console.log(S3imageUrl);
 
 </script>
 

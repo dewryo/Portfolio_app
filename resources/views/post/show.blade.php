@@ -26,7 +26,7 @@
         </div>
         <hr>
         <image-gallery :images="{{ json_encode($post->images->map(function ($image) {
-            return ['url' => asset($image->file_path), 'name' => $image->file_name];
+            return ['url' => Storage::disk('s3')->url($image->file_path), 'name' => $image->file_name];
         })) }}"></image-gallery>
         <hr>
         <p class="lead">{{ $post->content }}</p>

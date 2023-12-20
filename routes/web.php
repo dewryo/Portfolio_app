@@ -55,7 +55,7 @@ Route::put('/profile', [ProfileController::class,'update'])->name('profile.updat
 Route::get('/my_post/{id}',[PostController::class, 'my_post'])->middleware('auth')->name('my_post');
 
 // 他人の投稿一覧ページ表示
-Route::get('/posts/user/{id}',[PostController::class, 'user_post'])->name('user_post');
+Route::get('/posts/users/{id}',[PostController::class, 'user_post'])->name('user_post');
 
 // 投稿編集ページへのルート
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');

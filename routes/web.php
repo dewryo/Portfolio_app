@@ -19,6 +19,13 @@ use App\Http\Controllers\LoginController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//ロードバランサーのヘルスチェック用ルート
+Route::get('/health-check', function () {
+    return response()->json(['status' => 'ok'], 200);
+});
+
+
 //トップ画面表示
 Route::redirect('/', '/posts');
 Route::get('/posts',[PostController::class, 'showhome'])->name('home');

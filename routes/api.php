@@ -18,11 +18,6 @@ use App\Http\Controllers\CommentController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-//ロードバランサーのヘルスチェック用ルート
-Route::get('/health-check', function () {
-    return response()->json(['status' => 'ok'], 200);
-});
-
 
 // ユーザー情報を取得するルート（認証済みユーザーのみ）
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

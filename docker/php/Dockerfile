@@ -15,7 +15,8 @@ RUN apt-get update \
     libmcrypt-dev \
     libpng-dev \
     libfontconfig1 \
-    libxrender1
+    libxrender1 \
+    default-mysql-client  # MySQLクライアントのインストール
 
 # GD拡張モジュールを有効化してインストール
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg

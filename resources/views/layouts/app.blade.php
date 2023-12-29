@@ -32,7 +32,7 @@
                             $user = Auth::user();
                             @endphp
                             @if($user && $user->profile_image)
-                                <img src="{{ Storage::disk('s3')->url($user->file_path) }}" alt="プロフィール画像" class="profile-image">
+                                <img src="{{ Storage::disk('s3')->url($user->profile_image) }}" alt="プロフィール画像" class="profile-image">
                             @else
                                 <i class="fas fa-user-circle fa-2x"></i> <!-- FontAwesomeアイコンを使用 -->
                             @endif

@@ -36,9 +36,9 @@
           <div class="d-flex align-items-center">
             <div>
               <img v-if="post.user.profile_image" 
-                  :src="getS3ImageUrl(post.user.profile_image)" 
-                  alt="プロフィール画像" 
-                  class="profile-image mx-3">
+              :src="getS3ImageUrl('profile_images/' + post.user.profile_image)" 
+              alt="プロフィール画像" 
+              class="profile-image mx-3">
               <i v-else 
                 class="fas fa-user-circle fa-2x mx-3"></i>
             </div>
@@ -100,3 +100,5 @@ function getS3ImageUrl(filePath) {
   cursor: pointer;
 }
 </style>
+https://eduforum-bucket.s3.ap-northeast-1.amazonaws.com/images/1703826413_24462726.png
+http://54.95.69.244/storage/profile_images/profile_images/jNFugzmcE792Tq25Yl8iWJQ4p2cZppkrzAZlF2aq.png

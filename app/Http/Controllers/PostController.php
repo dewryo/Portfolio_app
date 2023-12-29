@@ -226,36 +226,30 @@ class PostController extends Controller
         $post->update($data);
     
         // タグの処理
-      
-            $post->post_tags()->where('type', 'grade')->delete();
-            if($request->grades){
-            foreach($request->grades as $grade){
-                $tag = Tag::where('name', $grade)->first();
-                if($tag){
-                    $tag_id = $tag->id;
-                    $post_tag = new PostTag;
-                    $post_tag->post_id = $post->id;
-                    $post_tag->tag_id = $tag_id;
-                    $post_tag->type = 'grade';
-                    $post_tag->save();
-                }
+        
+      // 既存のタグを削除
+        $post->postTags()->delete();
+
+        // 新しいタグを追加
+        if ($request->has('grades')) {
+            foreach ($request->grades as $grade) {
+                $tag = Tag::firstOrCreate(['name' => $grade]);
+                $postTag = new PostTag;
+                $postTag->post_id = $post->id;
+                $postTag->tag_id = $tag->id;
+                $postTag->type = 'grade';
+                $postTag->save();
             }
         }
-        
 
-       
-            $post->post_tags()->where('type', 'subject')->delete();
-            if($request->subjects){
-            foreach($request->subjects as $subject){
-                $tag = Tag::where('name', $subject)->first();
-                if($tag){
-                    $tag_id = $tag->id;
-                    $post_tag = new PostTag;
-                    $post_tag->post_id = $post->id;
-                    $post_tag->tag_id = $tag_id;
-                    $post_tag->type = 'subject';
-                    $post_tag->save();
-                }
+        if ($request->has('subjects')) {
+            foreach ($request->subjects as $subject) {
+                $tag = Tag::firstOrCreate(['name' => $subject]);
+                $postTag = new PostTag;
+                $postTag->post_id = $post->id;
+                $postTag->tag_id = $tag->id;
+                $postTag->type = 'subject';
+                $postTag->save();
             }
         }
         

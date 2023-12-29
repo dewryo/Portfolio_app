@@ -94,7 +94,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'image' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
-            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 各画像のバリデーション
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
             'grades' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
             'subjects' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
         ]);

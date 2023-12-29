@@ -16,7 +16,7 @@
                 $user_image = "/storage/profile_images/" . $post->user->profile_image;
                 @endphp
                 @if($post->user->profile_image)
-                <img src="{{ $user_image }}" alt="プロフィール画像" class="profile-image mx-3">
+                <img src="{{ Storage::disk('s3')->url($user->profile_image) }}" alt="プロフィール画像" class="profile-image mx-3">
                 @else
                 <i class="fas fa-user-circle fa-2x"></i> <!-- FontAwesomeアイコンを使用 -->
                 @endif

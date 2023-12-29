@@ -29,14 +29,14 @@
                     <div class="nav-item dropdown mx-3">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             @php
-                            $user_image = "/storage/profile_images/" . Auth::user()->profile_image;
+                            $user = Auth::user();
                             @endphp
-                            @if(Auth::user()->profile_image)
-                            <img src="{{ Storage::disk('s3')->url('profile_images/'.$user->profile_image) }}" alt="プロフィール画像" class="profile-image">
+                            @if($user && $user->profile_image)
+                                <img src="{{ Storage::disk('s3')->url('profile_images/'.$user->profile_image) }}" alt="プロフィール画像" class="profile-image">
                             @else
-                            <i class="fas fa-user-circle fa-2x"></i> <!-- FontAwesomeアイコンを使用 -->
+                                <i class="fas fa-user-circle fa-2x"></i> <!-- FontAwesomeアイコンを使用 -->
                             @endif
-                            {{ Auth::user()->name }}
+                            {{ $user->name }}
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

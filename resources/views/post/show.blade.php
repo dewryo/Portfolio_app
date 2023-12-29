@@ -11,7 +11,7 @@
                 <!-- 左側の空白コンテナ-->
             </div>
         <div class="post-item">
-            <a href="/posts/user/{{ $post->user->id }}">
+            <a href="/posts/user/{{ $post->users->id }}">
                 @php
                 $user_image = "/storage/profile_images/" . $post->user->profile_image;
                 @endphp
@@ -20,7 +20,7 @@
                 @else
                 <i class="fas fa-user-circle fa-2x"></i> <!-- FontAwesomeアイコンを使用 -->
                 @endif
-                <span>{{ $post->user->name }}</span>
+                <span>{{ $post->users->name }}</span>
             </a>
         </div>
         </div>

@@ -224,13 +224,13 @@ class PostController extends Controller
 
         // タグの処理
 
-      // 既存のタグを削除
-        $post->postTags()->delete();
+        // 既存のタグを削除
+        PostTag::where('post_id', $post->id)->delete();
 
-        // 新しいタグを追加
-        if ($request->has('grades')) {
-            foreach ($request->grades as $grade) {
-                $tag = Tag::firstOrCreate(['name' => $grade]);
+        // post_tagテーブルにtype=gradeで格納
+        foreach ($request->grades as $grade) {
+            $tag = Tag::where('name', $grade)->first();
+            if ($tag) {
                 $postTag = new PostTag;
                 $postTag->post_id = $post->id;
                 $postTag->tag_id = $tag->id;
@@ -239,9 +239,10 @@ class PostController extends Controller
             }
         }
 
-        if ($request->has('subjects')) {
-            foreach ($request->subjects as $subject) {
-                $tag = Tag::firstOrCreate(['name' => $subject]);
+        // post_tagテーブルにtype=subjectで格納
+        foreach ($request->subjects as $subject) {
+            $tag = Tag::where('name', $subject)->first();
+            if ($tag) {
                 $postTag = new PostTag;
                 $postTag->post_id = $post->id;
                 $postTag->tag_id = $tag->id;

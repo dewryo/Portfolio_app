@@ -32,8 +32,10 @@ class ProfileController extends Controller
     
         // 画像がアップロードされた場合の処理
         if ($request->hasFile('profile_image')) {
-            $filename = $request->file('profile_image')->store('profile_images', 'public');
-            $user->profile_image = basename($filename);
+            // S3のディスクを指定してファイルをアップロード
+            $filePath = $request->file('profile_image')->store('profile_images', 's3');
+            // フルパスを保存
+            $user->profile_image = Storage::disk('s3')->url($filePath);
         }
     
         $user->save();

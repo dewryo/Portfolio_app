@@ -158,7 +158,7 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'title' => 'タイトル',
-        'images' => '画像',
+        'image' => '画像',
         'content' => '説明',
         'grades' => '学年',
         'subjects' => '教科',

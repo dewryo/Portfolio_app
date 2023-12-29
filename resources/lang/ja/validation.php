@@ -157,6 +157,11 @@ return [
         'name' => '名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'title' => 'タイトル',
+        'images' => '画像',
+        'content' => '説明',
+        'grades' => '学年',
+        'subjects' => '教科',
     ],
 
 ];

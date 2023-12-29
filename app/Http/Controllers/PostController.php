@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
-
 class PostController extends Controller
 {
     //トップページの投稿一覧表示
@@ -196,37 +195,37 @@ class PostController extends Controller
         if ($request->hasFile('image')) {
             // 既存のすべての画像を削除
             foreach ($post->images as $image) {
-                $image->delete();
-
-                $imagePath = public_path($image->file_path); // public_pathヘルパーを使用して絶対パスを取得
-
-                if(File::exists($imagePath)) {
-                    File::delete($imagePath); // ファイルが存在する場合に削除
+                // S3から画像を削除
+                if (Storage::disk('s3')->exists($image->file_path)) {
+                    Storage::disk('s3')->delete($image->file_path);
                 }
-            }
-            //新規画像保存
-            foreach($request->file('image') as $uploadedFile){
-                // 画像に命名
-              $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
-                // 画像をストレージに保存
-              $uploadedFile->move(public_path('images'), $imageName);
-              // Imageモデルを作成し、Postとのリレーションを設定
-              $image = new Image;
-              $image->user_id = Auth::id();
-              $image->file_name = $imageName;
-              $image->file_path = 'images/' . $imageName;
-              $image->post()->associate($post);
-              $image->save();
 
-              
-          }
+                // ローカルデータベースのレコードを削除
+                $image->delete();
+            }
+
+            // 新規画像の保存
+            foreach ($request->file('image') as $uploadedFile) {
+                // 画像に命名
+                $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
+                // 画像をS3にアップロード
+                $filePath = $uploadedFile->storeAs('images', $imageName, 's3');
+
+                // Imageモデルを作成し、Postとのリレーションを設定
+                $image = new Image;
+                $image->user_id = Auth::id();
+                $image->file_name = $imageName;
+                $image->file_path = $filePath; // S3のパスを保存
+                $image->post()->associate($post);
+                $image->save();
+            }
         }
     
         // 投稿の更新
         $post->update($data);
     
         // タグの処理
-        
+
       // 既存のタグを削除
         $post->postTags()->delete();
 

@@ -221,9 +221,7 @@ class PostController extends Controller
             }
         }
     
-        // 投稿の更新
-        $post->update($data);
-    
+
         // タグの処理
 
       // 既存のタグを削除
@@ -252,6 +250,9 @@ class PostController extends Controller
             }
         }
         
+                // 投稿の更新
+                $post->update($data);
+    
     
         return redirect()->route('my_post', ['id' =>  Auth::id()])->with('success', '投稿が更新されました。');
     }

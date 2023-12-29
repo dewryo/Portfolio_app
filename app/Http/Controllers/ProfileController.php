@@ -36,7 +36,7 @@ class ProfileController extends Controller
             // S3のディスクを指定してファイルをアップロード
             $filePath = $request->file('profile_image')->store('profile_images', 's3');
             // フルパスを保存
-            $user->profile_image = Storage::disk('s3')->url($filePath);
+            $user->profile_image = $filePath;
         }
     
         $user->save();

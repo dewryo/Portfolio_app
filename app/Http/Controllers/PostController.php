@@ -188,7 +188,7 @@ class PostController extends Controller
             'content' => 'required',
             'subjects' => 'array', 
             'grades' => 'array',// タグが配列であること
-            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
     
         // 画像の処理

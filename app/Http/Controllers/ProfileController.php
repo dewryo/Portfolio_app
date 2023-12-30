@@ -19,7 +19,7 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
             'password' => 'sometimes|nullable|string|min:8|confirmed',
-            'profile_image' => 'sometimes|nullable|image|max:2048', // 画像ファイルバリデーション
+            'profile_image' => 'sometimes|nullable|image|max:20480', // 画像ファイルバリデーション
             'bio' => 'nullable|string',
         ]);
     

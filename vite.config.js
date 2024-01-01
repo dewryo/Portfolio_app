@@ -3,7 +3,6 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig(({ command }) => ({
-    base: command === 'build' ? 'https://eduforumapp.com/' : '/', // 本番環境のベースURLを設定
     plugins: [
         vue(),
         laravel({

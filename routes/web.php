@@ -25,11 +25,11 @@ Route::get('/health-check', function () {
     return response()->json(['status' => 'ok'], 200);
 });
 
-Route::middleware(['forceHttps'])->group(function () {
-
-
 //トップ画面表示
 Route::redirect('/', '/posts');
+
+Route::middleware(['forceHttps'])->group(function () {
+
 Route::get('/posts',[PostController::class, 'showhome'])->name('home');
 
 // ログインページ

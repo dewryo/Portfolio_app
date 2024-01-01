@@ -7,7 +7,7 @@
                 v-for="grade in grades"
                 :key="grade"
                 @click="toggleTag('grade', grade)"
-                :class="['btn', 'btn-spacing', selectedGrades.includes(grade) ? 'btn-primary' : 'btn-outline-primary']">
+                :class="['btn', 'btn-spacing', selectedGrades.includes(grade) ? 'selected' : 'btn-outline-primary']">
           {{ grade }}
         </button>
       </div>
@@ -21,7 +21,7 @@
                 v-for="subject in subjects"
                 :key="subject"
                 @click="toggleTag('subject', subject)"
-                :class="['btn', 'btn-spacing', selectedSubjects.includes(subject) ? 'btn-primary' : 'btn-outline-primary']">
+                :class="['btn', 'btn-spacing', selectedSubjects.includes(subject) ? 'selected' : 'btn-outline-primary']">
          {{ subject }}
        </button>
       </div>
@@ -62,8 +62,9 @@ const toggleTag = (type, tag) => {
 
 <style>
 .selected {
-  background-color: blue;
-  color: white;
+  background-color: blue; /* 選択されたときの背景色 */
+  color: white; /* 選択されたときのテキストの色 */
+  border-color: blue; /* 枠線の色 */
 }
 
 .btn-spacing {

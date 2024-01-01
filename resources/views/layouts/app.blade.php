@@ -5,13 +5,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduForum</title>
-   
-    <link rel="preload" as="style" href="{{ asset('build/assets/app-e0a2cbf2.css') }}" />
-    <link rel="preload" as="style" href="{{ asset('build/assets/app-b364c60a.css') }}" />
-    <link rel="modulepreload" href="{{ asset('build/assets/app-f49c8aa8.js') }}" />
-    <link rel="stylesheet" href="{{ asset('build/assets/app-e0a2cbf2.css') }}" />
-    <link rel="stylesheet" href="{{ asset('build/assets/app-b364c60a.css') }}" />
-    <script type="module" src="{{ asset('build/assets/app-f49c8aa8.js') }}"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">

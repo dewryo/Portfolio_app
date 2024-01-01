@@ -72,23 +72,6 @@ const toggleTag = (type, tag) => {
   margin-bottom: 8px; /* 下のマージン */
 }
 
-/* ボタンが選択されているときのスタイル */
-.btn-primary:not(:hover) {
-  background-color: #007bff; /* ここに選択されているときの色を指定 */
-  border-color: #007bff; /* 枠線の色も同様に */
-}
 
-/* ボタンが選択されていないときのスタイル */
-.btn-outline-primary {
-  background-color: transparent; /* 背景色は透明に */
-  border-color: #007bff; /* 枠線の色 */
-  color: #007bff; /* テキストの色 */
-}
 
-/* カーソルを合わせたときの色変化を無くす */
-.btn:not(:hover) {
-  background-color: inherit; /* 親要素から背景色を継承 */
-  border-color: inherit; /* 親要素から枠線の色を継承 */
-  color: inherit; /* 親要素からテキストの色を継承 */
-}
 </style>

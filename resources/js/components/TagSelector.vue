@@ -21,7 +21,7 @@
                 v-for="subject in subjects"
                 :key="subject"
                 @click="toggleTag('subject', subject)"
-                :class="['custom-button', selectedGrades.includes(grade) ? 'active' : '']">
+                :class="['custom-button', selectedSubjects.includes(subjects) ? 'active' : '']">
          {{ subject }}
        </button>
       </div>
@@ -70,11 +70,6 @@ const toggleTag = (type, tag) => {
   margin-bottom: 8px; /* 下のマージン */
   border-radius: 4px; /* 角丸 */
   font-size: 16px; /* フォントサイズ */
-  transition: background-color 0.3s, color 0.3s; /* スムーズな色の変更 */
-}
-
-.custom-button:hover {
-  background-color: #e2e6ea; /* ホバー時の背景色 */
 }
 
 .active {
@@ -82,4 +77,6 @@ const toggleTag = (type, tag) => {
   color: #fff; /* ホワイトテキスト */
   border-color: #007bff; /* ブルーの枠線 */
 }
+
+
 </style>

@@ -36,9 +36,9 @@
           <div class="d-flex align-items-center">
             <div>
               <img v-if="post.user.profile_image" 
-                  :src="`/storage/profile_images/${post.user.profile_image}`" 
-                  alt="プロフィール画像" 
-                  class="profile-image mx-3">
+              :src="getS3ImageUrl(post.user.profile_image)" 
+              alt="プロフィール画像" 
+              class="profile-image mx-3">
               <i v-else 
                 class="fas fa-user-circle fa-2x mx-3"></i>
             </div>

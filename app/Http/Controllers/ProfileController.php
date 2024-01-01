@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -18,7 +19,7 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
             'password' => 'sometimes|nullable|string|min:8|confirmed',
-            'profile_image' => 'sometimes|nullable|image|max:2048', // 画像ファイルバリデーション
+            'profile_image' => 'sometimes|nullable|image|max:20480', // 画像ファイルバリデーション
             'bio' => 'nullable|string',
         ]);
     
@@ -32,8 +33,10 @@ class ProfileController extends Controller
     
         // 画像がアップロードされた場合の処理
         if ($request->hasFile('profile_image')) {
-            $filename = $request->file('profile_image')->store('profile_images', 'public');
-            $user->profile_image = basename($filename);
+            // S3のディスクを指定してファイルをアップロード
+            $filePath = $request->file('profile_image')->store('profile_images', 's3');
+            // フルパスを保存
+            $user->profile_image = $filePath;
         }
     
         $user->save();

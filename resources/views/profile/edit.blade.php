@@ -46,7 +46,7 @@
             <label for="profile_image">プロフィール画像</label>
             <input type="file" class="form-control" id="profile_image" name="profile_image">
             @if ($user->profile_image)
-                <img src="{{ asset('storage/profile_images/'.$user->profile_image) }}" alt="Profile Image" width="100">
+                <img src="{{ Storage::disk('s3')->url($user->profile_image) }}" alt="Profile Image" width="100">
             @endif
         </div>
 

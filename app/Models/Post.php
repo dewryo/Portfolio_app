@@ -20,7 +20,6 @@ class Post extends Model
     return $this->hasMany(PostTag::class);
    }
 
-
     public function tags()
     {
     return $this->belongsToMany(Tag::class, 'post_tags')->withPivot('type');

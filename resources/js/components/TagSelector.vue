@@ -3,7 +3,11 @@
     <div class="mb-3">
       <p class="mb-2">学年</p>
       <div class="btn-group" role="group">
-        <button type="button" v-for="grade in grades" :key="grade" @click="toggleTag('grade', grade)" :class="['btn', selectedGrades.includes(grade) ? 'btn-primary' : 'btn-outline-primary']">
+        <button type="button"
+                v-for="grade in grades"
+                :key="grade"
+                @click="toggleTag('grade', grade)"
+                :class="['custom-button', selectedGrades.includes(grade) ? 'active' : '']">
           {{ grade }}
         </button>
       </div>
@@ -11,13 +15,17 @@
     </div>
 
     <div class="mb-3">
-     <p class="mb-2">教科</p>
+      <p class="mb-2">教科</p>
       <div class="btn-group flex-wrap" role="group">
-        <button type="button" v-for="subject in subjects" :key="subject" @click="toggleTag('subject', subject)" :class="['btn', selectedSubjects.includes(subject) ? 'btn-primary' : 'btn-outline-primary']">
+        <button type="button"
+                v-for="subject in subjects"
+                :key="subject"
+                @click="toggleTag('subject', subject)"
+                :class="['custom-button', selectedSubjects.includes(subject) ? 'active' : '']">
          {{ subject }}
        </button>
       </div>
-     <input type="hidden" name="subjects[]" v-for="subject in selectedSubjects" :key="'subject-' + subject" :value="subject">
+      <input type="hidden" name="subjects[]" v-for="subject in selectedSubjects" :key="'subject-' + subject" :value="subject">
     </div>
   </div>
 </template>
@@ -53,8 +61,22 @@ const toggleTag = (type, tag) => {
 </script>
 
 <style>
-.selected {
-  background-color: blue;
-  color: white;
+.custom-button {
+  background-color: #f8f9fa; /* ライトグレー */
+  color: #212529; /* ダークテキスト */
+  border: 1px solid #ddd; /* 細いグレーの枠線 */
+  padding: 8px 16px; /* ボタン内のパディング */
+  margin-right: 8px; /* 右のマージン */
+  margin-bottom: 8px; /* 下のマージン */
+  border-radius: 4px; /* 角丸 */
+  font-size: 16px; /* フォントサイズ */
 }
+
+.active {
+  background-color: #007bff; /* アクティブなボタンの背景色（ブルー） */
+  color: #fff; /* ホワイトテキスト */
+  border-color: #007bff; /* ブルーの枠線 */
+}
+
+
 </style>

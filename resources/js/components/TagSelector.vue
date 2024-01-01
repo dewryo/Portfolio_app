@@ -21,7 +21,7 @@
                 v-for="subject in subjects"
                 :key="subject"
                 @click="toggleTag('subject', subject)"
-                :class="['custom-button', selectedSubjects.includes(subjects) ? 'active' : '']">
+                :class="['custom-button', selectedSubjects.includes(subject) ? 'active' : '']">
          {{ subject }}
        </button>
       </div>

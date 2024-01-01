@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://eduforumapp.com/posts'),
+    'url' => env('APP_URL', 'https://eduforumapp.com'),
 
     'asset_url' => env('ASSET_URL'),
 

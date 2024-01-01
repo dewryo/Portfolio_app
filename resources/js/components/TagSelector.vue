@@ -7,7 +7,7 @@
                 v-for="grade in grades"
                 :key="grade"
                 @click="toggleTag('grade', grade)"
-                :class="['btn', 'btn-spacing', selectedGrades.includes(grade) ? 'btn-secondary' : 'btn-light']">
+                :class="['custom-button', selectedGrades.includes(grade) ? 'active' : '']">
           {{ grade }}
         </button>
       </div>
@@ -21,7 +21,7 @@
                 v-for="subject in subjects"
                 :key="subject"
                 @click="toggleTag('subject', subject)"
-                :class="['btn', 'btn-spacing', selectedSubjects.includes(subject) ? 'btn-secondary' : 'btn-light']">
+                :class="['custom-button', selectedGrades.includes(grade) ? 'active' : '']">
          {{ subject }}
        </button>
       </div>
@@ -61,27 +61,25 @@ const toggleTag = (type, tag) => {
 </script>
 
 <style>
-.selected, .btn-secondary {
-  background-color: #6c757d; /* 選択されたときの背景色（ダークグレー） */
-  color: white; /* テキストの色 */
-  border-color: #6c757d; /* 枠線の色 */
-}
-
-.btn-light {
-  background-color: #f8f9fa; /* 背景色（ライトグレー） */
-  color: #212529; /* テキストの色（ダーク） */
-  border-color: #f8f9fa; /* 枠線の色 */
-}
-
-.btn-spacing {
+.custom-button {
+  background-color: #f8f9fa; /* ライトグレー */
+  color: #212529; /* ダークテキスト */
+  border: 1px solid #ddd; /* 細いグレーの枠線 */
+  padding: 8px 16px; /* ボタン内のパディング */
   margin-right: 8px; /* 右のマージン */
   margin-bottom: 8px; /* 下のマージン */
+  border-radius: 4px; /* 角丸 */
+  font-size: 16px; /* フォントサイズ */
+  transition: background-color 0.3s, color 0.3s; /* スムーズな色の変更 */
 }
 
-.btn:hover, .btn-secondary:hover, .btn-light:hover {
-  /* ホバー時のスタイルを削除または無効化 */
-  background-color: inherit; /* 現在の背景色を保持 */
-  color: inherit; /* 現在のテキスト色を保持 */
-  border-color: inherit; /* 現在の枠線色を保持 */
+.custom-button:hover {
+  background-color: #e2e6ea; /* ホバー時の背景色 */
+}
+
+.active {
+  background-color: #007bff; /* アクティブなボタンの背景色（ブルー） */
+  color: #fff; /* ホワイトテキスト */
+  border-color: #007bff; /* ブルーの枠線 */
 }
 </style>

@@ -15,11 +15,10 @@ class Post extends Model
     return $this->hasMany(Image::class);
     }
 
-    public function postTags()
-    {
+    public function postTag()
+   {
     return $this->hasMany(PostTag::class);
-    }
-
+   }
 
     public function tags()
     {

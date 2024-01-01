@@ -1,62 +1,24 @@
-version: '3'
-services:
+  version: '3'
+  services:
   # Nginxサービス
-  nginx:
-    container_name: "nginx"  # コンテナの名前
+   nginx:
+    container_name: nginx
     build:
-      context: ./docker/nginx  # NginxのDockerfileがあるディレクトリ
+      context: ./docker/nginx
     depends_on:
-      - app  # appサービスが起動してから起動
+      - app
     ports:
-      - "80:80"  # ホストマシンのポート80をコンテナのポート80にマッピング
+      - "80:80"
     volumes:
-      - ./:/src  # ホストマシンのカレントディレクトリをコンテナの/srcにマウント
-
+      - ./:/src  # ソースコードのマウント（変更点） 
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
   # PHPアプリケーションサービス
-  app:
-    container_name: "app"  # コンテナの名前
+   app:
+    container_name: app
     build:
-      context: ./docker/php  # PHPアプリケーションのDockerfileがあるディレクトリ
-    depends_on:
-      - db  # dbサービスが起動してから起動
-    ports:
-      - 5173:5173 # Docker外にいるブラウザから、appサーバー内にいるViteが見えるよう、ポート5173を見せるため
+      context: ./docker/php
     volumes:
-      - ./:/src  # ホストマシンのカレントディレクトリをコンテナの/srcにマウント
-      - /src/node_modules  # ノードモジュールをコンテナ内の/src/node_modulesにマウント
-      - /src/vendor  # ベンダーディレクトリをコンテナ内の/src/vendorにマウント
-      - ./docker/php/php.ini:/usr/local/etc/php/php.ini  # カスタムのphp.iniをマウント
-
-  # MySQLデータベースサービス
-  db:
-    image: mysql:8.0.33  # MySQLイメージの指定
-    command: --max_allowed_packet=32505856  # MySQLコマンドラインオプション
-    container_name: "db"  # コンテナの名前
-    volumes:
-      - ./docker/mysql:/var/lib/mysql  # ホストマシンの./docker/mysqlディレクトリをコンテナの/var/lib/mysqlにマウント
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # ルートユーザーのパスワード
-      MYSQL_USER: ${MYSQL_USER}  # MySQLユーザー名
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # MySQLユーザーのパスワード
-      MYSQL_DATABASE: ${MYSQL_DATABASE}  # MySQLデータベース名
-    ports:
-      - "3306:3306"  # ホストマシンのポート3306をコンテナのポート3306にマッピング
-
-  # Redisサービス
-  redis:
-    image: redis:alpine  # Redisイメージの指定
-    container_name: "redis"  # コンテナの名前
-    ports:
-      - "16379:6379"  # ホストマシンのポート16379をコンテナのポート6379にマッピング
-
-  # phpMyAdminサービス
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin  # phpMyAdminイメージの指定
-    container_name: phpmyadmin  # コンテナの名前
-    environment:
-      - PMA_ARBITRARY=1  # phpMyAdminの設定オプション
-      - PMA_HOSTS=db  # データベースのホストを指定
-    ports:
-     - 3000:80  # ホストマシンのポート3000をコンテナのポート80にマッピング
-    volumes:
-     - ./phpadmin/sessions:/sessions  # ホストマシンの./phpadmin/sessionsディレクトリをコンテナの/sessionsにマウント
+      - ./:/src  # ソースコードのマウント（変更点）
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf

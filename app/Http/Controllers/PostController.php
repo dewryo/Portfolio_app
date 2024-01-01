@@ -21,7 +21,7 @@ class PostController extends Controller
     {
         $keyword = $request->input('keyword');
         $tags = $request->input('tag'); //クエリパラメータからタグを取得
-        $query = Post::with(['images', 'postTags', 'tags' ,'likes' ,'user']); //投稿一覧を取得
+        $query = Post::with(['images', 'postTag', 'tags' ,'likes' ,'user']); //投稿一覧を取得
 
         // キーワード検索がある場合
         if (!empty($keyword)) {
@@ -108,23 +108,21 @@ class PostController extends Controller
 
         // imageテーブルに格納
         if ($request->hasFile('image')) {
-            foreach ($request->file('image') as $uploadedFile) {
-            // 画像に命名
-            $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
-            // 画像をS3バケットにアップロード
-            $imagePath = $uploadedFile->storeAs('images', $imageName, 's3');
-            // Imageモデルを作成し、Postとのリレーションを設定
-            $image = new Image;
-            $image->user_id = Auth::id();
-            $image->file_name = $imageName;
-            $image->file_path = $imagePath;
-            $image->post()->associate($post);
-            $image->save();
-    
+        foreach ($request->file('image') as $uploadedFile) {
+        // 画像に命名
+        $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
+        // 画像をS3バケットにアップロード
+        $imagePath = $uploadedFile->storeAs('images', $imageName, 's3');
+        // Imageモデルを作成し、Postとのリレーションを設定
+        $image = new Image;
+        $image->user_id = Auth::id();
+        $image->file_name = $imageName;
+        $image->file_path = $imagePath;
+        $image->post()->associate($post);
+        $image->save();
+    }
+}
 
-                
-            }
-        }
         //post_tagテーブルにtype=gradeで格納
         foreach($request->grades as $grade){
             $tag = Tag::where('name', $grade)->first();

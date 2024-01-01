@@ -76,5 +76,3 @@ Route::get('/saved_post/{id}',[PostController::class, 'saved_post'])->middleware
 
 // ゲストログイン用のルート
 Route::get('/guest-login', [LoginController::class, 'guestLogin'])->name('guest_login');
-
-

@@ -34,8 +34,9 @@ Route::get('/posts',[PostController::class, 'showhome'])->name('home');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->middleware('guest') ->name('login');
 // ログイン処理
 Route::post('/login', [AuthController::class, 'login']);
-// ログアウト処理
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+// ログアウト処理（HTTPS通信を要求する）
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('force.https');
+
 
 
 // 新規登録フォームの表示

@@ -5,7 +5,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduForum</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+   
     <link rel="preload" as="style" href="{{ asset('build/assets/app-e0a2cbf2.css') }}" />
     <link rel="preload" as="style" href="{{ asset('build/assets/app-b364c60a.css') }}" />
     <link rel="modulepreload" href="{{ asset('build/assets/app-f49c8aa8.js') }}" />

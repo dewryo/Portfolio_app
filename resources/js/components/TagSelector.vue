@@ -3,7 +3,11 @@
     <div class="mb-3">
       <p class="mb-2">学年</p>
       <div class="btn-group" role="group">
-        <button type="button" v-for="grade in grades" :key="grade" @click="toggleTag('grade', grade)" :class="['btn', selectedGrades.includes(grade) ? 'btn-primary' : 'btn-outline-primary']">
+        <button type="button"
+                v-for="grade in grades"
+                :key="grade"
+                @click="toggleTag('grade', grade)"
+                :class="['btn', 'btn-spacing', selectedGrades.includes(grade) ? 'btn-primary' : 'btn-outline-primary']">
           {{ grade }}
         </button>
       </div>
@@ -11,13 +15,17 @@
     </div>
 
     <div class="mb-3">
-     <p class="mb-2">教科</p>
+      <p class="mb-2">教科</p>
       <div class="btn-group flex-wrap" role="group">
-        <button type="button" v-for="subject in subjects" :key="subject" @click="toggleTag('subject', subject)" :class="['btn', selectedSubjects.includes(subject) ? 'btn-primary' : 'btn-outline-primary']">
+        <button type="button"
+                v-for="subject in subjects"
+                :key="subject"
+                @click="toggleTag('subject', subject)"
+                :class="['btn', 'btn-spacing', selectedSubjects.includes(subject) ? 'btn-primary' : 'btn-outline-primary']">
          {{ subject }}
        </button>
       </div>
-     <input type="hidden" name="subjects[]" v-for="subject in selectedSubjects" :key="'subject-' + subject" :value="subject">
+      <input type="hidden" name="subjects[]" v-for="subject in selectedSubjects" :key="'subject-' + subject" :value="subject">
     </div>
   </div>
 </template>
@@ -56,5 +64,30 @@ const toggleTag = (type, tag) => {
 .selected {
   background-color: blue;
   color: white;
+}
+
+.btn-spacing {
+  margin-right: 8px; /* 右のマージン */
+  margin-bottom: 8px; /* 下のマージン */
+}
+
+/* ボタンが選択されているときのスタイル */
+.btn-primary:not(:hover) {
+  background-color: #007bff; /* ここに選択されているときの色を指定 */
+  border-color: #007bff; /* 枠線の色も同様に */
+}
+
+/* ボタンが選択されていないときのスタイル */
+.btn-outline-primary {
+  background-color: transparent; /* 背景色は透明に */
+  border-color: #007bff; /* 枠線の色 */
+  color: #007bff; /* テキストの色 */
+}
+
+/* カーソルを合わせたときの色変化を無くす */
+.btn:not(:hover) {
+  background-color: inherit; /* 親要素から背景色を継承 */
+  border-color: inherit; /* 親要素から枠線の色を継承 */
+  color: inherit; /* 親要素からテキストの色を継承 */
 }
 </style>

@@ -72,6 +72,10 @@ const toggleTag = (type, tag) => {
   margin-bottom: 8px; /* 下のマージン */
 }
 
-
+.btn:hover, .selected:hover, .btn-outline-primary:hover {
+  background-color: inherit; /* 親要素から背景色を継承 */
+  color: inherit; /* 親要素からテキストの色を継承 */
+  border-color: inherit; /* 親要素から枠線の色を継承 */
+}
 
 </style>

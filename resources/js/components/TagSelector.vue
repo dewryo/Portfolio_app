@@ -7,7 +7,7 @@
                 v-for="grade in grades"
                 :key="grade"
                 @click="toggleTag('grade', grade)"
-                :class="['btn', 'btn-spacing', selectedGrades.includes(grade) ? 'selected' : 'btn-outline-primary']">
+                :class="['btn', 'btn-spacing', selectedGrades.includes(grade) ? 'btn-secondary' : 'btn-light']">
           {{ grade }}
         </button>
       </div>
@@ -21,7 +21,7 @@
                 v-for="subject in subjects"
                 :key="subject"
                 @click="toggleTag('subject', subject)"
-                :class="['btn', 'btn-spacing', selectedSubjects.includes(subject) ? 'selected' : 'btn-outline-primary']">
+                :class="['btn', 'btn-spacing', selectedSubjects.includes(subject) ? 'btn-secondary' : 'btn-light']">
          {{ subject }}
        </button>
       </div>
@@ -61,10 +61,16 @@ const toggleTag = (type, tag) => {
 </script>
 
 <style>
-.selected {
-  background-color: blue; /* 選択されたときの背景色 */
-  color: white; /* 選択されたときのテキストの色 */
-  border-color: blue; /* 枠線の色 */
+.selected, .btn-secondary {
+  background-color: #6c757d; /* 選択されたときの背景色（ダークグレー） */
+  color: white; /* テキストの色 */
+  border-color: #6c757d; /* 枠線の色 */
+}
+
+.btn-light {
+  background-color: #f8f9fa; /* 背景色（ライトグレー） */
+  color: #212529; /* テキストの色（ダーク） */
+  border-color: #f8f9fa; /* 枠線の色 */
 }
 
 .btn-spacing {
@@ -72,10 +78,10 @@ const toggleTag = (type, tag) => {
   margin-bottom: 8px; /* 下のマージン */
 }
 
-.btn:hover, .selected:hover, .btn-outline-primary:hover {
-  background-color: inherit; /* 親要素から背景色を継承 */
-  color: inherit; /* 親要素からテキストの色を継承 */
-  border-color: inherit; /* 親要素から枠線の色を継承 */
+.btn:hover, .btn-secondary:hover, .btn-light:hover {
+  /* ホバー時のスタイルを削除または無効化 */
+  background-color: inherit; /* 現在の背景色を保持 */
+  color: inherit; /* 現在のテキスト色を保持 */
+  border-color: inherit; /* 現在の枠線色を保持 */
 }
-
 </style>

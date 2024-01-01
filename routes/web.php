@@ -28,8 +28,6 @@ Route::get('/health-check', function () {
 //トップ画面表示
 Route::redirect('/', '/posts');
 
-Route::middleware(['forceHttps'])->group(function () {
-
 Route::get('/posts',[PostController::class, 'showhome'])->name('home');
 
 // ログインページ
@@ -80,4 +78,3 @@ Route::get('/saved_post/{id}',[PostController::class, 'saved_post'])->middleware
 Route::get('/guest-login', [LoginController::class, 'guestLogin'])->name('guest_login');
 
 
-});

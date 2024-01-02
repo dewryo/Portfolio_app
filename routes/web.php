@@ -76,3 +76,8 @@ Route::get('/saved_post/{id}',[PostController::class, 'saved_post'])->middleware
 
 // ゲストログイン用のルート
 Route::get('/guest-login', [LoginController::class, 'guestLogin'])->name('guest_login');
+
+//認証してるか調べる
+    Route::get('/auth/check', function () {
+        return response()->json(['authenticated' => auth()->check()]);
+    });

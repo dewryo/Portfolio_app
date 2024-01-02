@@ -43,7 +43,7 @@ const router = useRouter();
 
 const navigateToPostForm = async () => {
   try {
-    const response = await axios.get('/api/auth/check');
+    const response = await axios.get('/auth/check');
     if (response.data.authenticated) {
       window.location.href = '/posts/form';
     } else {

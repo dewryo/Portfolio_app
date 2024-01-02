@@ -24,13 +24,13 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-bars fa-2x"></i>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ route('guest_login') }}">ゲストでログイン</a></li>
-                        <li><a class="dropdown-item" href="{{ route('login') }}">ログイン</a></li>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('guest_login') }}">ゲストでログイン</a>
+                        <a class="dropdown-item" href="{{ route('login') }}">ログイン</a>
                         @if (Route::has('register'))
-                            <li><a class="dropdown-item" href="{{ route('register') }}">新規登録</a></li>
+                            <a class="dropdown-item" href="{{ route('register') }}">新規登録</a>
                         @endif
-                    </ul>
+                    </div>
                 </div>
                 @else
                     <div class="nav-item dropdown mx-3">

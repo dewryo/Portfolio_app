@@ -42,7 +42,7 @@ const router = useRouter();
 
 const navigateToPostForm = async () => {
   try {
-    await axios.get(`/api/posts/new`);
+    const response = await axios.get('/posts/form');
   } catch (error) {
     console.error('操作に失敗しました。', error);
     // エラーレスポンスからエラーメッセージを取得して設定

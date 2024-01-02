@@ -1,12 +1,11 @@
 <template>
-        <div class="row justify-content-end">
-            <div class="col-md-6">
-              <div style="height: 30px;"></div>
-                <button @click="navigateToPostForm" class="new-post-button">
-                    <i class="fa-solid fa-pen fa-3x"></i>
-                </button>
-            </div>
-        </div>
+<div class="row justify-content-center">
+    <div class="col-md-6 d-flex justify-content-center align-items-center" style="height: 100px;">
+        <button @click="navigateToPostForm" class="new-post-button">
+            <i class="fa-regular fa-pen-to-square fa-2x"></i>
+        </button>
+    </div>
+</div>
           <!-- Bootstrap モーダル -->
     <div v-if="errorMessage" class="modal d-block" tabindex="-1" role="dialog" style="background-color: rgba(0, 0, 0, 0.5);">
         <div class="modal-dialog modal-dialog-centered" role="document">

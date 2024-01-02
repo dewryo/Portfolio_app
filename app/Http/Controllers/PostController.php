@@ -184,8 +184,8 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'subjects' => 'array', 
-            'grades' => 'array',// タグが配列であること
+            'subjects' => 'required|array|min:1', 
+            'grades' => 'required|array|min:1',// タグが配列であること
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
     

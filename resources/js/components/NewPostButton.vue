@@ -12,11 +12,6 @@
     <div v-if="errorMessage" class="modal d-block" tabindex="-1" role="dialog" style="background-color: rgba(0, 0, 0, 0.5);">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" :class="['like-button','close']" @click="clearError">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <div class="modal-body d-flex flex-column align-items-center justify-content-center">
                     <p>{{ errorMessage }}</p>
                     <div class="d-flex flex-column align-items-stretch">
@@ -47,7 +42,7 @@ const navigateToPostForm = async () => {
     if (response.data.authenticated) {
       window.location.href = '/posts/form';
     } else {
-      throw new Error('認証されていません。');
+      throw new Error('ログインすると「新規投稿」することができます');
     }
   } catch (error) {
     errorMessage.value = error.message || 'ログインすると「新規投稿」することができます';

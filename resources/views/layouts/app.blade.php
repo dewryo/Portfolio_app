@@ -20,7 +20,7 @@
             <div class="d-flex">
                 <!-- Authentication Links -->
                 @guest
-                <li class="nav-item dropdown">
+                <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-bars fa-2x"></i>
                     </a>
@@ -31,7 +31,7 @@
                             <li><a class="dropdown-item" href="{{ route('register') }}">新規登録</a></li>
                         @endif
                     </ul>
-                </li>
+                </div>
                 @else
                     <div class="nav-item dropdown mx-3">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -79,3 +79,9 @@
 </body>
 </html>
 
+<style>
+/* ドロップダウンのアイコンを非表示にする */
+.nav-item.dropdown .nav-link::after {
+    display: none;
+}
+</style>

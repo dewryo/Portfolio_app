@@ -19,9 +19,10 @@ use App\Http\Controllers\CommentController;
 |
 */
 //認証してるか調べる
+Route::middleware('web')->group(function () {
 Route::get('/auth/check', function () {
     return response()->json(['authenticated' => auth()->check()]);
-});
+})});
 
 // ユーザー情報を取得するルート（認証済みユーザーのみ）
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

@@ -2,8 +2,9 @@
 <div class="row">
     <div class="col-md-7 offset-md-4">
         <form  class="text-right">
-            <span class="sort-label">並べ替え：</span>
+            
             <a href="#" class="sort-link" @click.prevent="sort_new_Posts">新着順</a>
+            <a href="#" class="sort-link" @click.prevent="sort_old_Posts">古い順</a>
             <a href="#" class="sort-link" @click.prevent="sort_like_Posts">いいね順</a>
         </form>
     </div>
@@ -33,6 +34,18 @@ const emit = defineEmits(['update-posts']);
 const sort_new_Posts = async () => {
   const response = await axios.get('/api/posts', {
     params: { orderBy: 'new' ,
+              tag: props.selectedTags,
+              keyword: props.searchKeyword
+              }
+    
+  });
+  //親コンポーネントへデータを送る
+  emit('update-posts',response.data);
+};
+
+const sort_old_Posts = async () => {
+  const response = await axios.get('/api/posts', {
+    params: { orderBy: 'old' ,
               tag: props.selectedTags,
               keyword: props.searchKeyword
               }

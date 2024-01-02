@@ -52,6 +52,10 @@ class PostController extends Controller
             // 新着順に並べ替え、または並べ替えの指定がない場合
             $query->orderBy('created_at', 'desc');
         }
+        if ($request->input('orderBy') === 'old') {
+            // いいね順に並べ替え
+            $query->orderBy('created_at', 'asc');
+        }
         
         // ページネーションを適用する
         $posts = $query->paginate(10)->appends(['tag' => $tags]);

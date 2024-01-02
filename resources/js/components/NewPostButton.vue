@@ -1,22 +1,68 @@
 <template>
-          <div class="row justify-content-end">
-            <div class="col-md-6">
-              <div style="height: 10x;"></div>
-                <button @click="navigateToPostForm" class="new-post-button">
-                    <font-awesome-icon :icon="['far', 'square-plus']" /> 投稿
-                </button>
-            </div>
+  <button @click="navigateToPostForm" class="new-post-button">
+    <i class="fa-regular fa-square-plus"></i>新規投稿
+  </button>
+
+  <!-- 以下のBootstrap モーダルを追加 -->
+  <div v-if="errorMessage" class="modal d-block" tabindex="-1" role="dialog" style="background-color: rgba(0, 0, 0, 0.5);">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" @click="clearError">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-    
+        <div class="modal-body">
+          <p>{{ errorMessage }}</p>
+          <div class="text-center">
+            <a class="btn btn-primary" href="/login">ログイン</a>
+            <a class="btn btn-secondary" href="/register">新規登録</a>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @click="clearError">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import { ref } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
 export default {
-  methods: {
-    navigateToPostForm() {
-      this.$router.push({ name: 'post' });
-    }
-  }
+  setup() {
+    const errorMessage = ref('');
+    const router = useRouter();
+
+    const navigateToPostForm = async () => {
+      try {
+        // ログインチェックの仮実装、本番ではAPIを使用する
+        const response = await axios.get('/api/check-login');
+        if (response.data.loggedIn) {
+          router.push({ name: 'post' });
+        } else {
+          throw new Error('ログインが必要です');
+        }
+      } catch (error) {
+        console.error('操作に失敗しました。', error);
+        // エラーレスポンスからエラーメッセージを取得して設定
+        errorMessage.value = error.response && error.response.data.message ? error.response.data.message : 'ログインすると「新規投稿」することができます';
+      }
+    };
+
+    const clearError = () => {
+      errorMessage.value = '';
+    };
+
+    return {
+      navigateToPostForm,
+      errorMessage,
+      clearError
+    };
+  },
 };
 </script>
 

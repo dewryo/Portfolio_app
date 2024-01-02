@@ -24,6 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/check-login', function () {
+    return response()->json(['loggedIn' => auth()->check()]);
+});
+
 // トップページの投稿一覧を取得するルート
 Route::middleware('web')->group(function () {
 Route::get('/posts', [PostController::class, 'showHome']); 

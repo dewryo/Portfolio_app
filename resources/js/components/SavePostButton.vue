@@ -15,8 +15,9 @@
                 <div class="modal-body d-flex flex-column align-items-center justify-content-center">
                     <p>{{ errorMessage }}</p>
                     <div class="d-flex flex-column align-items-stretch">
-                        <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'mb-2', 'w-100']" href="/login">ログイン</a>
-                         <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'w-100']" href="/register">新規登録</a>
+                        <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'mb-2', 'w-200']" href="/guest-login">ゲストでログイン</a>
+                        <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'mb-2', 'w-200']" href="/login">ログイン</a>
+                         <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'w-200']" href="/register">新規登録</a>
                      </div>
                 </div>
                 <div class="modal-footer">

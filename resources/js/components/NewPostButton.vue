@@ -20,8 +20,9 @@
                 <div class="modal-body d-flex flex-column align-items-center justify-content-center">
                     <p>{{ errorMessage }}</p>
                     <div class="d-flex flex-column align-items-stretch">
-                        <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'mb-2', 'w-100']" href="/login">ログイン</a>
-                         <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'w-100']" href="/register">新規登録</a>
+                        <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'mb-2', 'w-200']" href="/guest-login">ゲストでログイン</a>
+                        <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'mb-2', 'w-200']" href="/login">ログイン</a>
+                         <a :class="['btn', 'btn-outline-primary', 'btn-sm', 'w-200']" href="/register">新規登録</a>
                      </div>
                 </div>
                 <div class="modal-footer">
@@ -40,13 +41,16 @@ import { useRouter } from 'vue-router';
 const errorMessage = ref('');
 const router = useRouter();
 
-const navigateToPostForm = () => {
+const navigateToPostForm = async () => {
   try {
-    window.location.href = '/posts/form';
+    const response = await axios.get('/api/auth/check');
+    if (response.data.authenticated) {
+      window.location.href = '/posts/form';
+    } else {
+      throw new Error('認証されていません。');
+    }
   } catch (error) {
-    console.error('操作に失敗しました。', error);
-    // エラーレスポンスからエラーメッセージを取得して設定
-    errorMessage.value = error.response && error.response.data.message ? error.response.data.message : 'ログインすると「新規投稿」することができます';
+    errorMessage.value = error.message || 'ログインすると「新規投稿」することができます';
   }
 };
 

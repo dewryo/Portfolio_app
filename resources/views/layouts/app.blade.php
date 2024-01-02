@@ -20,11 +20,18 @@
             <div class="d-flex">
                 <!-- Authentication Links -->
                 @guest
-                    <a class="nav-link mx-3" href="{{ route('guest_login') }}">ゲストでログイン</a>
-                    <a class="nav-link mx-3" href="{{ route('login') }}">ログイン</a>
-                    @if (Route::has('register'))
-                        <a class="nav-link mx-3" href="{{ route('register') }}">新規登録</a>
-                    @endif
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-bars fa-2x"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ route('guest_login') }}">ゲストでログイン</a></li>
+                        <li><a class="dropdown-item" href="{{ route('login') }}">ログイン</a></li>
+                        @if (Route::has('register'))
+                            <li><a class="dropdown-item" href="{{ route('register') }}">新規登録</a></li>
+                        @endif
+                    </ul>
+                </li>
                 @else
                     <div class="nav-item dropdown mx-3">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

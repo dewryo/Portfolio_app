@@ -42,7 +42,7 @@ const router = useRouter();
 
 const navigateToPostForm = () => {
   try {
-    router.push('/posts/form'); // 画面遷移を行う
+    window.location.href = '/posts/form';
   } catch (error) {
     console.error('操作に失敗しました。', error);
     // エラーレスポンスからエラーメッセージを取得して設定

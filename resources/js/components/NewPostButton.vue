@@ -1,9 +1,9 @@
 <template>
         <div class="row justify-content-end">
             <div class="col-md-6">
-              <div style="height: 10px;"></div>
+              <div style="height: 30px;"></div>
                 <button @click="navigateToPostForm" class="new-post-button">
-                    <i class="fa-regular fa-square-plus fa-2x"></i>新規投稿
+                    <i class="fa-solid fa-pen fa-3x"></i>
                 </button>
             </div>
         </div>
@@ -41,13 +41,7 @@ const router = useRouter();
 
 const navigateToPostForm = async () => {
   try {
-    // ログインチェックの仮実装、本番ではAPIを使用する
-    const response = await axios.get('/api/check-login');
-    if (response.data.loggedIn) {
-      router.push({ name: 'post' });
-    } else {
-      throw new Error('ログインが必要です');
-    }
+        await axios.get(`/api/posts/new`);
   } catch (error) {
     console.error('操作に失敗しました。', error);
     // エラーレスポンスからエラーメッセージを取得して設定
@@ -63,9 +57,7 @@ const clearError = () => {
 
 <style>
 
-.new-post-button i {
-  margin-right: 1em; /* アイコンとテキストの間にスペースを追加 */
-}
+
 
 .new-post-button {
   background: #f0f0f0; /* 薄い灰色の背景色 */

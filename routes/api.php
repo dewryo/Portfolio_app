@@ -24,8 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/check-login', function () {
-    return response()->json(['loggedIn' => auth()->check()]);
+
+// 新規投稿が押されたときに実行するルート（認証済みユーザーのみ）
+Route::middleware('web')->group(function () {
+    Route::get('/posts/new', [PostController::class, 'post']);
 });
 
 // トップページの投稿一覧を取得するルート

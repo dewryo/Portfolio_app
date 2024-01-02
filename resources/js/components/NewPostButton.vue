@@ -40,9 +40,9 @@ import { useRouter } from 'vue-router';
 const errorMessage = ref('');
 const router = useRouter();
 
-const navigateToPostForm = async () => {
+const navigateToPostForm = () => {
   try {
-    const response = await axios.get('/posts/form');
+    router.push('/posts/form'); // 画面遷移を行う
   } catch (error) {
     console.error('操作に失敗しました。', error);
     // エラーレスポンスからエラーメッセージを取得して設定

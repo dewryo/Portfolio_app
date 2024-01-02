@@ -12,7 +12,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import CommentsList from './components/CommentsList.vue';
 import SavePostButton from './components/SavePostButton.vue';
 
-
+import router from './router'; // Router設定をインポート
 const app = createApp({});
 
 app.component('image-preview', ImagePreview);
@@ -23,4 +23,5 @@ app.component('image-gallery', ImageGallery);
 app.component('comments-list', CommentsList);
 app.component('save-postbutton', SavePostButton);
 
+app.use(router); // Routerをアプリケーションに適用
 app.mount('#app');

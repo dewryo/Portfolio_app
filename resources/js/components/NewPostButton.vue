@@ -1,11 +1,13 @@
 <template>
-<div class="row justify-content-center">
-    <div class="col-md-6 d-flex justify-content-center align-items-center" style="height: 100px;">
+        <div class="row justify-content-end">
+            <div class="col-md-6">
+              <div style="height: 30px;"></div>   
         <button @click="navigateToPostForm" class="new-post-button">
             <i class="fa-regular fa-pen-to-square fa-2x"></i>
         </button>
-    </div>
-</div>
+            </div>
+        </div>
+    
           <!-- Bootstrap モーダル -->
     <div v-if="errorMessage" class="modal d-block" tabindex="-1" role="dialog" style="background-color: rgba(0, 0, 0, 0.5);">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -40,7 +42,7 @@ const router = useRouter();
 
 const navigateToPostForm = async () => {
   try {
-        await axios.get(`/api/posts/new`);
+    await axios.get(`/api/posts/new`);
   } catch (error) {
     console.error('操作に失敗しました。', error);
     // エラーレスポンスからエラーメッセージを取得して設定
@@ -69,6 +71,9 @@ const clearError = () => {
   outline: inherit; /* フォーカス時の枠線を親要素から継承 */
   border-radius: 20px; /* 角を丸くする */
   transition: background-color 0.3s; /* 背景色の変化にアニメーションを追加 */
+      width: 100%;  /* ボタンの幅を親要素の幅いっぱいにする */
+    text-align: center;  /* テキスト（アイコンを含む）を中央揃えにする */
+    /* その他の必要なスタイル（例: パディング、ボーダーなど） */
 }
 
 .new-post-button:hover {

@@ -46,7 +46,7 @@ const props = defineProps({
 
 
 const grades = ['1年', '2年', '3年', '4年', '5年', '6年'];
-const subjects = ['国語', '算数', '理科', '社会', '音楽', '図工', '体育', '家庭科', '総合', '道徳', '学級活動'];
+const subjects = ['国語', '算数', '理科', '社会', '外国語', '音楽', '図工', '体育', '家庭科', '総合', '道徳', '学級活動'];
 const selectedGrades = ref(props.initialGrades ||[]);
 const selectedSubjects = ref(props.initialSubjects || []);
 

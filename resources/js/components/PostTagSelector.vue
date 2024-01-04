@@ -3,9 +3,9 @@
     <div class="row justify-content-end">
 
       <div class="col-md-6">
-        <div style="height: 20px;"></div>
+        <div style="height: 10px;"></div>
         <div>
-          <h6 class="mb-3">タグ</h6>
+          
           <div class="d-flex flex-column mb-4">
           <!-- 年度のプルダウンメニュー -->
           <div class="dropdown flex-grow-1">

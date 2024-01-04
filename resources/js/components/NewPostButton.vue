@@ -1,7 +1,6 @@
 <template>
         <div class="row justify-content-end">
             <div class="col-md-6">
-              <div style="height: 10px;"></div>   
         <button @click="navigateToPostForm" class="new-post-button">
             <i class="fa-regular fa-pen-to-square fa-2x"></i>
         </button>

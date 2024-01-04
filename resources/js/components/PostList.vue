@@ -10,7 +10,6 @@
         <!-- Search Form Column -->
          <SearchForm @update-keyword="searchKeyword = $event" @update-posts="handleUpdatePosts"/>
         
-        <div style="height: 10px;"></div>
         <!-- Tag Selector Column -->
         <PostTagSelector :selectedTags="selectedTags" @tag-selected="addTag" @tag-deselected="removeTag"/>
         </div>

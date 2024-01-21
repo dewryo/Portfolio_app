@@ -29,7 +29,7 @@
                             <div style="height: 10px;"></div>
                             @if($post->images->isNotEmpty())
                             <div style="display: flex; justify-content: center; align-items: center; height: 200px;">
-                                <img src="{{ asset($post->images->first()->file_path) }}" alt="{{ $post->images->first()->file_name }}" class="img-fluid" style="max-height: 100%; max-width: 100%;">
+                                <img src="{{ Storage::disk('s3')->url($post->images->first()->file_path) }}" alt="{{ $post->images->first()->file_name }}" class="img-fluid" style="max-height: 100%; max-width: 100%;">
                             </div>
                         @else
                             <p>No image available</p>

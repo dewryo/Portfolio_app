@@ -3,8 +3,9 @@
     <div class="row justify-content-end">
 
       <div class="col-md-6">
+        <div style="height: 5px;"></div>
         <div>
-          <h6 class="mb-3">タグ検索</h6>
+          
           <div class="d-flex flex-column mb-4">
           <!-- 年度のプルダウンメニュー -->
           <div class="dropdown flex-grow-1">
@@ -59,7 +60,7 @@ const props = defineProps({
 });
 const emit = defineEmits();
 const grades = ['1年', '2年', '3年', '4年', '5年', '6年'];
-const subjects = ['国語', '算数', '理科', '社会', '音楽', '図工', '体育', '家庭科', '総合', '道徳', '学級活動'];
+const subjects = ['国語', '算数', '理科', '社会', '外国語', '音楽', '図工', '体育', '家庭科', '総合', '道徳', '学級活動'];
 
 function toggleTagSelection(tag) {
   if (props.selectedTags.includes(tag)) {

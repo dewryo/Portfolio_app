@@ -9,20 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::table('post_tags', function (Blueprint $table) {
-            $table->timestamps();
-        });
-    }
+    public function up()
+{
+    Schema::table('posts', function (Blueprint $table) {
+        $table->renameColumn('update_at', 'updated_at');
+    });
+}
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::table('post_tags', function (Blueprint $table) {
-            $table->dropTimestamps();
-        });
+        //
     }
 };

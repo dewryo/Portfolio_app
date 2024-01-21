@@ -2,8 +2,8 @@
     
         <div class="row justify-content-end">
             <div class="col-md-6">
-              <div style="height: 30px;"></div>
-              <h6 class="mb-3">キーワード検索</h6>
+              <div style="height: 10px;"></div>
+              
                 <form @submit.prevent="searchPosts">
                     <input type="search" v-model="keyword" class="form-control" placeholder="検索...">
                 </form>

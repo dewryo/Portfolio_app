@@ -11,12 +11,12 @@
                 <!-- 左側の空白コンテナ-->
             </div>
         <div class="post-item">
-            <a href="/posts/user/{{ $post->user->id }}">
+            <a href="/posts/users/{{ $post->user->id }}">
                 @php
                 $user_image = "/storage/profile_images/" . $post->user->profile_image;
                 @endphp
                 @if($post->user->profile_image)
-                <img src="{{ $user_image }}" alt="プロフィール画像" class="profile-image mx-3">
+                <img src="{{ Storage::disk('s3')->url($post->user->profile_image) }}" alt="プロフィール画像" class="profile-image mx-3">
                 @else
                 <i class="fas fa-user-circle fa-2x"></i> <!-- FontAwesomeアイコンを使用 -->
                 @endif
@@ -26,7 +26,7 @@
         </div>
         <hr>
         <image-gallery :images="{{ json_encode($post->images->map(function ($image) {
-            return ['url' => asset($image->file_path), 'name' => $image->file_name];
+            return ['url' => Storage::disk('s3')->url($image->file_path), 'name' => $image->file_name];
         })) }}"></image-gallery>
         <hr>
         <p class="lead">{{ $post->content }}</p>

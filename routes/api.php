@@ -19,9 +19,16 @@ use App\Http\Controllers\CommentController;
 |
 */
 
+
 // ユーザー情報を取得するルート（認証済みユーザーのみ）
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+// 新規投稿が押されたときに実行するルート（認証済みユーザーのみ）
+Route::middleware('web')->group(function () {
+    Route::get('/posts/new', [PostController::class, 'showPostForm']);
 });
 
 // トップページの投稿一覧を取得するルート

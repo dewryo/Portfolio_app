@@ -19,7 +19,14 @@ use App\Http\Controllers\LoginController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//ロードバランサーのヘルスチェック用ルート
+Route::get('/health-check', function () {
+    return response()->json(['status' => 'ok'], 200);
+});
+
 //トップ画面表示
+Route::redirect('/', '/posts');
 
 Route::get('/posts',[PostController::class, 'showhome'])->name('home');
 
@@ -55,7 +62,7 @@ Route::put('/profile', [ProfileController::class,'update'])->name('profile.updat
 Route::get('/my_post/{id}',[PostController::class, 'my_post'])->middleware('auth')->name('my_post');
 
 // 他人の投稿一覧ページ表示
-Route::get('/posts/user/{id}',[PostController::class, 'user_post'])->name('user_post');
+Route::get('/posts/users/{id}',[PostController::class, 'user_post'])->name('user_post');
 
 // 投稿編集ページへのルート
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
@@ -69,3 +76,8 @@ Route::get('/saved_post/{id}',[PostController::class, 'saved_post'])->middleware
 
 // ゲストログイン用のルート
 Route::get('/guest-login', [LoginController::class, 'guestLogin'])->name('guest_login');
+
+//認証してるか調べる
+    Route::get('/auth/check', function () {
+        return response()->json(['authenticated' => auth()->check()]);
+    });

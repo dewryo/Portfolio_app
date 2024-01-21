@@ -19,7 +19,7 @@
 
         <div class="mb-3">
             <label for="title" class="form-label">タイトル</label>
-            <input type="text" id="title" name="title" class="form-control" required>
+            <input type="text" id="title" name="title" class="form-control" value="{{ old('title') }}">
         </div>
 
         <div class="mb-3">
@@ -28,7 +28,7 @@
 
         <div class="mb-3">
             <label for="content" class="form-label">説明</label>
-            <textarea id="content" name="content" rows="4" class="form-control" required></textarea>
+            <textarea id="content" name="content" rows="4" class="form-control" value="{{ old('content') }}"></textarea>
         </div>
 
         <div class="mb-3">

@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
-
 class PostController extends Controller
 {
     //トップページの投稿一覧表示
@@ -22,7 +21,7 @@ class PostController extends Controller
     {
         $keyword = $request->input('keyword');
         $tags = $request->input('tag'); //クエリパラメータからタグを取得
-        $query = Post::with(['images', 'postTags', 'tags' ,'likes' ,'user']); //投稿一覧を取得
+        $query = Post::with(['images', 'postTag', 'tags' ,'likes' ,'user']); //投稿一覧を取得
 
         // キーワード検索がある場合
         if (!empty($keyword)) {
@@ -52,6 +51,10 @@ class PostController extends Controller
         } elseif ($request->input('orderBy') === 'new' || !$request->has('orderBy')) {
             // 新着順に並べ替え、または並べ替えの指定がない場合
             $query->orderBy('created_at', 'desc');
+        }
+        if ($request->input('orderBy') === 'old') {
+            // いいね順に並べ替え
+            $query->orderBy('created_at', 'asc');
         }
         
         // ページネーションを適用する
@@ -95,7 +98,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'image' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
-            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 各画像のバリデーション
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
             'grades' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
             'subjects' => 'required|array|min:1', // 配列として受け入れ、最低1つの要素を必要とします
         ]);
@@ -106,24 +109,24 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->save();
 
-        // imageテーブルに格納
-        if($request->hasFile('image')){
-            foreach($request->file('image') as $uploadedFile){
-                  // 画像に命名
-                $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
-                  // 画像をストレージに保存
-                $uploadedFile->move(public_path('images'), $imageName);
-                // Imageモデルを作成し、Postとのリレーションを設定
-                $image = new Image;
-                $image->user_id = Auth::id();
-                $image->file_name = $imageName;
-                $image->file_path = 'images/' . $imageName;
-                $image->post()->associate($post);
-                $image->save();
 
-                
-            }
-        }
+        // imageテーブルに格納
+        if ($request->hasFile('image')) {
+        foreach ($request->file('image') as $uploadedFile) {
+        // 画像に命名
+        $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
+        // 画像をS3バケットにアップロード
+        $imagePath = $uploadedFile->storeAs('images', $imageName, 's3');
+        // Imageモデルを作成し、Postとのリレーションを設定
+        $image = new Image;
+        $image->user_id = Auth::id();
+        $image->file_name = $imageName;
+        $image->file_path = $imagePath;
+        $image->post()->associate($post);
+        $image->save();
+    }
+}
+
         //post_tagテーブルにtype=gradeで格納
         foreach($request->grades as $grade){
             $tag = Tag::where('name', $grade)->first();
@@ -185,78 +188,74 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'subjects' => 'array', 
-            'grades' => 'array',// タグが配列であること
-            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'subjects' => 'required|array|min:1', 
+            'grades' => 'required|array|min:1',// タグが配列であること
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
     
         // 画像の処理
         if ($request->hasFile('image')) {
             // 既存のすべての画像を削除
             foreach ($post->images as $image) {
+                // S3から画像を削除
+                if (Storage::disk('s3')->exists($image->file_path)) {
+                    Storage::disk('s3')->delete($image->file_path);
+                }
+
+                // ローカルデータベースのレコードを削除
                 $image->delete();
-
-                $imagePath = public_path($image->file_path); // public_pathヘルパーを使用して絶対パスを取得
-
-                if(File::exists($imagePath)) {
-                    File::delete($imagePath); // ファイルが存在する場合に削除
-                }
             }
-            //新規画像保存
-            foreach($request->file('image') as $uploadedFile){
+
+            // 新規画像の保存
+            foreach ($request->file('image') as $uploadedFile) {
                 // 画像に命名
-              $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
-                // 画像をストレージに保存
-              $uploadedFile->move(public_path('images'), $imageName);
-              // Imageモデルを作成し、Postとのリレーションを設定
-              $image = new Image;
-              $image->user_id = Auth::id();
-              $image->file_name = $imageName;
-              $image->file_path = 'images/' . $imageName;
-              $image->post()->associate($post);
-              $image->save();
+                $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
+                // 画像をS3にアップロード
+                $filePath = $uploadedFile->storeAs('images', $imageName, 's3');
 
-              
-          }
+                // Imageモデルを作成し、Postとのリレーションを設定
+                $image = new Image;
+                $image->user_id = Auth::id();
+                $image->file_name = $imageName;
+                $image->file_path = $filePath; // S3のパスを保存
+                $image->post()->associate($post);
+                $image->save();
+            }
         }
     
-        // 投稿の更新
-        $post->update($data);
-    
+
         // タグの処理
-      
-            $post->post_tags()->where('type', 'grade')->delete();
-            if($request->grades){
-            foreach($request->grades as $grade){
-                $tag = Tag::where('name', $grade)->first();
-                if($tag){
-                    $tag_id = $tag->id;
-                    $post_tag = new PostTag;
-                    $post_tag->post_id = $post->id;
-                    $post_tag->tag_id = $tag_id;
-                    $post_tag->type = 'grade';
-                    $post_tag->save();
-                }
-            }
-        }
-        
 
-       
-            $post->post_tags()->where('type', 'subject')->delete();
-            if($request->subjects){
-            foreach($request->subjects as $subject){
-                $tag = Tag::where('name', $subject)->first();
-                if($tag){
-                    $tag_id = $tag->id;
-                    $post_tag = new PostTag;
-                    $post_tag->post_id = $post->id;
-                    $post_tag->tag_id = $tag_id;
-                    $post_tag->type = 'subject';
-                    $post_tag->save();
-                }
+        // 既存のタグを削除
+        PostTag::where('post_id', $post->id)->delete();
+
+        // post_tagテーブルにtype=gradeで格納
+        foreach ($request->grades as $grade) {
+            $tag = Tag::where('name', $grade)->first();
+            if ($tag) {
+                $postTag = new PostTag;
+                $postTag->post_id = $post->id;
+                $postTag->tag_id = $tag->id;
+                $postTag->type = 'grade';
+                $postTag->save();
+            }
+        }
+
+        // post_tagテーブルにtype=subjectで格納
+        foreach ($request->subjects as $subject) {
+            $tag = Tag::where('name', $subject)->first();
+            if ($tag) {
+                $postTag = new PostTag;
+                $postTag->post_id = $post->id;
+                $postTag->tag_id = $tag->id;
+                $postTag->type = 'subject';
+                $postTag->save();
             }
         }
         
+                // 投稿の更新
+                $post->update($data);
+    
     
         return redirect()->route('my_post', ['id' =>  Auth::id()])->with('success', '投稿が更新されました。');
     }

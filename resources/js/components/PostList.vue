@@ -3,10 +3,13 @@
     <div class="row">
       <div class="col-4 col-md-4">
         <div class="container  sticky ">
+
+        <!-- NewPostButton Component -->
+        <NewPostButton />
+
         <!-- Search Form Column -->
          <SearchForm @update-keyword="searchKeyword = $event" @update-posts="handleUpdatePosts"/>
         
-        <div style="height: 10px;"></div>
         <!-- Tag Selector Column -->
         <PostTagSelector :selectedTags="selectedTags" @tag-selected="addTag" @tag-deselected="removeTag"/>
         </div>
@@ -28,6 +31,7 @@ import PostCard from './PostCard.vue';
 import PostTagSelector from './PostTagSelector.vue';
 import SearchForm from './SearchForm.vue';
 import SortButton from './SortButton.vue'
+import NewPostButton from './NewPostButton.vue';
 import _ from 'lodash';
 
 const posts = ref([]);

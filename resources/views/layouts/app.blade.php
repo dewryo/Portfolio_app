@@ -20,23 +20,28 @@
             <div class="d-flex">
                 <!-- Authentication Links -->
                 @guest
-                    <a class="nav-link mx-3" href="{{ route('guest_login') }}">ゲストでログイン</a>
-                    <a class="nav-link mx-3" href="{{ route('login') }}">ログイン</a>
-                    @if (Route::has('register'))
-                        <a class="nav-link mx-3" href="{{ route('register') }}">新規登録</a>
-                    @endif
+                <div class="nav-item dropdown mx-3">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <i class="fa-solid fa-bars fa-2x"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('guest_login') }}">ゲストでログイン</a>
+                        <a class="dropdown-item" href="{{ route('login') }}">ログイン</a>                       
+                        <a class="dropdown-item" href="{{ route('register') }}">新規登録</a>                      
+                    </div>
+                </div>
                 @else
                     <div class="nav-item dropdown mx-3">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             @php
-                            $user_image = "/storage/profile_images/" . Auth::user()->profile_image;
+                            $user = Auth::user();
                             @endphp
-                            @if(Auth::user()->profile_image)
-                            <img src="{{ $user_image }}" alt="プロフィール画像" class="profile-image">
+                            @if($user && $user->profile_image)
+                                <img src="{{ Storage::disk('s3')->url($user->profile_image) }}" alt="プロフィール画像" class="profile-image">
                             @else
-                            <i class="fas fa-user-circle fa-2x"></i> <!-- FontAwesomeアイコンを使用 -->
+                                <i class="fas fa-user-circle fa-2x"></i> <!-- FontAwesomeアイコンを使用 -->
                             @endif
-                            {{ Auth::user()->name }}
+                            {{ $user->name }}
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -72,3 +77,9 @@
 </body>
 </html>
 
+<style>
+/* ドロップダウンのアイコンを非表示にする */
+.nav-item.dropdown .nav-link::after {
+    display: none;
+}
+</style>

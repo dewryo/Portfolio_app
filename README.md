@@ -35,7 +35,7 @@ https://eduforumapp.com
 | PHP (Laravel)    | MVC アーキテクチャを使用した実装、RESTful API の作成 |
 | JavaScript       | Ajax を使用した非同期通信、基本的なイベントハンドリング |
 | Vue.js           | SPA (シングルページアプリケーション) の開発、コンポーネントベースのアーキテクチャの実装 |
-| HTML             | 基本的なタグ使用 |
+| HTML             | 基本的なタグの使用 |
 | CSS              | Bootstrap を用いたレスポンシブデザインの実装、基本的なスタイリングとレイアウト調整 |
 | SQL              | データベースの設計と管理、基本的なクエリの作成と最適化 |
 | AWS              | クラウドインフラストラクチャの設計と管理、VPC, EC2, RDS, S3, Route53, ELB, Autoscaling, ACM の使用 |
@@ -48,9 +48,9 @@ https://eduforumapp.com
 
 <br />
 
-## システム構成図
+## インフラ構成図
 
-![システム構成図](/img/インフラ構成図.png)
+![インフラ構成図](/img/インフラ構成図.png)
 
 <br />
 
